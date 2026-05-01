@@ -21,7 +21,6 @@ const progressBar = document.getElementById('progressBar');
 
 episodeTitleElem.innerText = episodeTitle;
 
-// ========== DETEKSI GOOGLE DRIVE ==========
 function isGoogleDriveUrl(url) {
     return url.includes('drive.google.com') || url.includes('drive.usercontent.google.com');
 }
@@ -32,232 +31,94 @@ function getGoogleDriveEmbedUrl(url) {
     if (match1) fileId = match1[1];
     const match2 = url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
     if (match2) fileId = match2[1];
-    const match3 = url.match(/uc\?id=([a-zA-Z0-9_-]+)/);
-    if (match3) fileId = match3[1];
-    const match4 = url.match(/open\?id=([a-zA-Z0-9_-]+)/);
-    if (match4) fileId = match4[1];
-    
-    if (fileId) {
-        return `https://drive.google.com/file/d/${fileId}/preview`;
-    }
+    if (fileId) return `https://drive.google.com/file/d/${fileId}/preview`;
     return url;
 }
 
-// ========== DETEKSI FILE LANGSUNG (Catbox, dll) ==========
-function isDirectVideoUrl(url) {
-    return url.match(/\.(mp4|mkv|webm|mov|avi)$/i) !== null;
-}
-
-// ========== SETUP PLAYER ==========
 let watchStartTime = Date.now();
 let hasRecorded = false;
 let recordedTimer = null;
 let isGoogleDrive = false;
 
 if (isGoogleDriveUrl(videoUrl)) {
-    // ========== GOOGLE DRIVE - PAKAI IFRAME ==========
     isGoogleDrive = true;
     const embedUrl = getGoogleDriveEmbedUrl(videoUrl);
-    console.log('Google Drive embed URL:', embedUrl);
-    
     googleDrivePlayer.style.display = 'block';
     animePlayer.style.display = 'none';
     driveIframe.src = embedUrl;
-    
-    // Untuk Google Drive, simpan history setelah 30 detik (asumsi user nonton)
-    recordedTimer = setTimeout(() => {
-        if (!hasRecorded) {
-            saveWatchProgressForGoogleDrive(180);
-        }
-    }, 30000);
-    
+    recordedTimer = setTimeout(() => { if (!hasRecorded) saveWatchProgressForGoogleDrive(180); }, 30000);
 } else {
-    // ========== MP4/MKV LANGSUNG (Catbox, dll) - PAKAI VIDEO TAG ==========
     isGoogleDrive = false;
     googleDrivePlayer.style.display = 'none';
     animePlayer.style.display = 'block';
-    
     let finalUrl = videoUrl;
-    if (!videoUrl.startsWith('http://') && !videoUrl.startsWith('https://')) {
-        finalUrl = `/videos/${videoUrl}`;
-    }
-    
+    if (!videoUrl.startsWith('http://') && !videoUrl.startsWith('https://')) finalUrl = `/videos/${videoUrl}`;
     videoSource.src = finalUrl;
     animePlayer.load();
-    
-    // Resume ke timestamp terakhir
     if (resumeTimestamp > 0) {
-        animePlayer.addEventListener('loadedmetadata', () => {
-            if (resumeTimestamp < animePlayer.duration) {
-                animePlayer.currentTime = resumeTimestamp;
-                console.log(`Resume ke detik: ${resumeTimestamp}`);
-            }
-        });
+        animePlayer.addEventListener('loadedmetadata', () => { if (resumeTimestamp < animePlayer.duration) animePlayer.currentTime = resumeTimestamp; });
     }
-    
-    animePlayer.addEventListener('play', () => {
-        watchStartTime = Date.now();
-        console.log('Video mulai diputar');
-    });
-    
+    animePlayer.addEventListener('play', () => { watchStartTime = Date.now(); });
     animePlayer.addEventListener('timeupdate', () => {
         const currentTime = animePlayer.currentTime;
         const duration = animePlayer.duration;
-        
-        // Skip opening button (detik 5-88)
-        if (currentTime > 5 && currentTime < 88) {
-            skipBtn.style.display = 'block';
-        } else {
-            skipBtn.style.display = 'none';
-        }
-        
-        // Update progress bar
-        if (duration > 0) {
-            const percent = (currentTime / duration) * 100;
-            if (progressBar) progressBar.style.width = `${percent}%`;
-        }
-        
-        // Save ketika mencapai 95%
-        if (!hasRecorded && duration > 0 && (currentTime / duration) > 0.95) {
-            saveWatchProgressForMp4(true);
-        }
+        if (currentTime > 5 && currentTime < 88) skipBtn.style.display = 'block';
+        else skipBtn.style.display = 'none';
+        if (duration > 0) progressBar.style.width = `${(currentTime / duration) * 100}%`;
+        if (!hasRecorded && duration > 0 && (currentTime / duration) > 0.95) saveWatchProgressForMp4(true);
     });
-    
-    skipBtn.addEventListener('click', () => {
-        animePlayer.currentTime = 90;
-        skipBtn.style.display = 'none';
-    });
-    
-    animePlayer.addEventListener('ended', () => {
-        console.log('Video selesai');
-        saveWatchProgressForMp4(true);
-        if (recordedTimer) clearTimeout(recordedTimer);
-    });
-    
-    // Auto save setiap 15 detik untuk MP4
-    recordedTimer = setInterval(() => {
-        if (animePlayer && !animePlayer.paused && animePlayer.currentTime > 0 && !hasRecorded) {
-            saveWatchProgressForMp4(false);
-        }
-    }, 15000);
+    skipBtn.addEventListener('click', () => { animePlayer.currentTime = 90; skipBtn.style.display = 'none'; });
+    animePlayer.addEventListener('ended', () => { saveWatchProgressForMp4(true); if (recordedTimer) clearTimeout(recordedTimer); });
+    recordedTimer = setInterval(() => { if (animePlayer && !animePlayer.paused && animePlayer.currentTime > 0 && !hasRecorded) saveWatchProgressForMp4(false); }, 15000);
 }
 
-// ========== FUNGSI SAVE HISTORY & XP UNTUK MP4 ==========
 async function saveWatchProgressForMp4(isComplete = false) {
     if (hasRecorded) return;
-    
     const token = localStorage.getItem('token');
-    if (!token) {
-        console.log('No token, tidak bisa simpan history');
-        return;
-    }
-    
+    if (!token) return;
     const currentTime = Math.floor(animePlayer.currentTime);
     const watchSeconds = Math.floor((Date.now() - watchStartTime) / 1000);
-    
-    if (currentTime < 3 && !isComplete) {
-        console.log('Waktu terlalu singkat, skip save');
-        return;
-    }
-    
-    console.log(`Menyimpan MP4 progress: currentTime=${currentTime} detik, watchDuration=${watchSeconds} detik`);
-    
+    if (currentTime < 3 && !isComplete) return;
     try {
-        await axios.post('/api/history/add', {
-            animeId: animeId,
-            animeTitle: '',
-            watchTime: currentTime,
-            episode: episodeNum
-        }, { headers: { Authorization: `Bearer ${token}` } });
-        
-        console.log('History MP4 berhasil disimpan');
-        
+        await axios.post('/api/history/add', { animeId, animeTitle: '', watchTime: currentTime, episode: episodeNum }, { headers: { Authorization: `Bearer ${token}` } });
         if (watchSeconds >= 10 && !hasRecorded) {
-            const xpRes = await axios.post('/api/user/add-xp', {
-                watchTime: watchSeconds
-            }, { headers: { Authorization: `Bearer ${token}` } });
-            
-            console.log('XP berhasil diupdate:', xpRes.data);
-            
-            if (xpRes.data.leveledUp) {
-                alert(`🎉 LEVEL UP! Kamu sekarang Level ${xpRes.data.level}!`);
-            }
-            
-            if (typeof updateLevelBadge === 'function') {
-                updateLevelBadge();
-            }
+            const xpRes = await axios.post('/api/user/add-xp', { watchTime: watchSeconds }, { headers: { Authorization: `Bearer ${token}` } });
+            if (xpRes.data.leveledUp && typeof updateLevelBadge === 'function') { alert(`🎉 LEVEL UP! Kamu sekarang Level ${xpRes.data.level}!`); updateLevelBadge(); }
             hasRecorded = true;
         }
-        
-    } catch (err) {
-        console.error('Gagal simpan progress MP4:', err);
-    }
+    } catch (err) { console.error('Gagal simpan progress:', err); }
 }
 
-// ========== FUNGSI SAVE HISTORY & XP UNTUK GOOGLE DRIVE ==========
 async function saveWatchProgressForGoogleDrive(watchSeconds) {
     if (hasRecorded) return;
-    
     const token = localStorage.getItem('token');
-    if (!token) {
-        console.log('No token, tidak bisa simpan history');
-        return;
-    }
-    
+    if (!token) return;
     hasRecorded = true;
-    console.log(`Menyimpan Google Drive progress: ${watchSeconds} detik`);
-    
     try {
-        await axios.post('/api/history/add', {
-            animeId: animeId,
-            animeTitle: '',
-            watchTime: watchSeconds,
-            episode: episodeNum
-        }, { headers: { Authorization: `Bearer ${token}` } });
-        
-        console.log('History Google Drive berhasil disimpan');
-        
-        const xpRes = await axios.post('/api/user/add-xp', {
-            watchTime: watchSeconds
-        }, { headers: { Authorization: `Bearer ${token}` } });
-        
-        console.log('XP berhasil diupdate:', xpRes.data);
-        
-        if (xpRes.data.leveledUp) {
-            alert(`🎉 LEVEL UP! Kamu sekarang Level ${xpRes.data.level}!`);
-        }
-        
-        if (typeof updateLevelBadge === 'function') {
-            updateLevelBadge();
-        }
-        
-    } catch (err) {
-        console.error('Gagal simpan progress Google Drive:', err);
-        hasRecorded = false;
-    }
+        await axios.post('/api/history/add', { animeId, animeTitle: '', watchTime: watchSeconds, episode: episodeNum }, { headers: { Authorization: `Bearer ${token}` } });
+        const xpRes = await axios.post('/api/user/add-xp', { watchTime: watchSeconds }, { headers: { Authorization: `Bearer ${token}` } });
+        if (xpRes.data.leveledUp && typeof updateLevelBadge === 'function') { alert(`🎉 LEVEL UP! Kamu sekarang Level ${xpRes.data.level}!`); updateLevelBadge(); }
+    } catch (err) { console.error('Gagal simpan progress Google Drive:', err); hasRecorded = false; }
 }
 
-// ========== SAVE SEBELUM TUTUP TAB ==========
 window.addEventListener('beforeunload', () => {
     if (!isGoogleDrive && animePlayer && animePlayer.currentTime > 0) {
         const token = localStorage.getItem('token');
-        if (token) {
-            navigator.sendBeacon('/api/history/add', new Blob([JSON.stringify({
-                animeId: animeId,
-                watchTime: Math.floor(animePlayer.currentTime),
-                episode: episodeNum
-            })], {type: 'application/json'}));
-        }
+        if (token) navigator.sendBeacon('/api/history/add', new Blob([JSON.stringify({ animeId, watchTime: Math.floor(animePlayer.currentTime), episode: episodeNum })], { type: 'application/json' }));
     }
 });
 
-// ========== BOTTOM NAVIGATION ==========
-document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', () => {
+document.querySelectorAll('.nav-item').forEach(async (item) => {
+    item.addEventListener('click', async () => {
         const page = item.dataset.page;
-        if (page === 'home') window.location.href = '/index.html';
-        if (page === 'jadwal') window.location.href = '/jadwal.html';
-        if (page === 'history') window.location.href = '/history.html';
-        if (page === 'profile') window.location.href = '/profile.html';
+        let url = '';
+        if (page === 'home') url = '/index.html';
+        if (page === 'jadwal') url = '/jadwal.html';
+        if (page === 'history') url = '/history.html';
+        if (page === 'profile') url = '/profile.html';
+        if (url) {
+            const allowed = await window.checkMaintenanceAccess();
+            if (allowed) window.location.href = url;
+        }
     });
 });
