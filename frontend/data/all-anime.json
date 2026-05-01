@@ -1534,5 +1534,64 @@
       }
     ],
     "id": "31"
+  },
+  {
+    "title": "Dorohedoro Season 2",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL0Rws4i1-KSSK99xm7_1UvOym7SdmpkYxKg8CRvYw50h1PwgC4NZj9NY&s=10",
+    "synopsis": "Musim ke 2 dari seris anime Dorohedoro.",
+    "genre": [
+      "Action",
+      "Fantasy",
+      "Seinen",
+      "Comedy",
+      "Horor",
+      "Gore"
+    ],
+    "studio": "MAPPA",
+    "rating": 8.17,
+    "views": "789,9K",
+    "latestEpisode": 7,
+    "uploadDate": "2026-04-29",
+    "scheduleDay": "Rabu",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1Z2KJutKfFXmX7sVB7XE2XxdC5FSIV0Mv/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1ORsIZJJewxz67wyFTiJHTcbBXigBSiiA/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/14fkwYV-QeH4dZAO_GYg7k8__S-caMLUx/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1oQKUmcs_ioBhTW3LTYpU19pMz7m7hCp-/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1RIpWmnM8DI9d5U4SokX7Yeq62fg_X87D/view?usp=drivesdk"
+      },
+      {
+        "number": 6,
+        "title": "Eps6",
+        "videoUrl": "https://drive.google.com/file/d/1lyybElT3t5ditt5ZPTrhcQcT_1_E-wyB/view?usp=drivesdk"
+      },
+      {
+        "number": 7,
+        "title": "Eps7",
+        "videoUrl": "https://drive.google.com/file/d/1R9y1tu7e1ADyej0XtKhVOqAwl7Hj0fhO/view?usp=drivesdk"
+      }
+    ],
+    "id": "32"
   }
 ]
