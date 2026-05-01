@@ -1741,5 +1741,46 @@
       }
     ],
     "id": "35"
+  },
+  {
+    "title": "Megami \"Isekai Tensei Nani ni Naritai desu ka\" Ore \"Yuusha no Rokkotsu de\"",
+    "cover": "https://media.kitsu.app/anime/50642/poster_image/large-1ee6d52df845e4c85c074bc1f1b1a60b.jpeg",
+    "synopsis": "Di dunia ini, seseorang bisa bereinkarnasi ke dunia lain berkali-kali sampai mereka merasa puas dengan kehidupannya barunya. Namun, untuk bereinkarnasi di dunia yang mereka inginkan, perlu antrian yang lumayan lama hingga puluhan ribu tahun. Karena enggan untuk menunggu selama itu, Ore sang karakter Utama memilih menjadi Tulang Rusuk sang Pahlawan. Keputusannya membuat ia mampu bereinkarnasi di dunia baru ini tanpa perlu menunggu bertahun-tahun. Konyolnya, ia kembali ke hadapan sang Dewa setelah dirinya menyelesaikan kehidupan di dunia baru. Kini, ia mencoba untuk bereinkarnasi menjadi sosok baru lainnya.",
+    "genre": [
+      "Fantasy",
+      "Isekai",
+      "Reincarnation"
+    ],
+    "studio": "Qzil.la, S.o.K",
+    "rating": 6.14,
+    "views": "1,1M",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-29",
+    "scheduleDay": "Rabu",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://link-error.mp4"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://link-error.mp4"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://link-error.mp4"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://link-error.mp4"
+      }
+    ],
+    "id": "36"
   }
 ]
