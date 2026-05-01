@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Kontak & Info - AnimeStream</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <div class="header-left">
+                <span class="back-btn" onclick="history.back()">← Kembali</span>
+            </div>
+            <div class="header-right">
+                <span class="level-badge" id="levelBadge">⭐ Lv.1 | 0/100 XP | 0 jam</span>
+            </div>
+        </div>
+
+        <div class="kontak-container">
+            <div class="kontak-header">
+                <div class="kontak-icon">📞</div>
+                <h1>Kontak & Informasi</h1>
+                <p>Hubungi saya untuk laporan bug, info update, atau dukungan</p>
+            </div>
+
+            <div class="kontak-card">
+                <div class="kontak-icon-small">🐛</div>
+                <div class="kontak-info">
+                    <h3>Laporkan Bug / Masalah</h3>
+                    <p>Jika ada video error, subtitle tidak sesuai, atau masalah lain</p>
+                    <a href="https://t.me/Always_Lanz" target="_blank" class="kontak-btn telegram">
+                        📱 Telegram Owner
+                    </a>
+                </div>
+            </div>
+
+            <div class="kontak-card">
+                <div class="kontak-icon-small">📢</div>
+                <div class="kontak-info">
+                    <h3>Info Update Anime</h3>
+                    <p>Dapatkan informasi anime terbaru yang akan ditambahkan</p>
+                    <a href="https://whatsapp.com/channel/0029Vb5qdez0bIdiHG8ibj2k" target="_blank" class="kontak-btn whatsapp">
+                        📢 WhatsApp Channel
+                    </a>
+                </div>
+            </div>
+
+            <div class="kontak-card">
+                <div class="kontak-icon-small">💖</div>
+                <div class="kontak-info">
+                    <h3>Dukungan & Request Anime</h3>
+                    <p>Dukung development website atau request anime cepat upload</p>
+                    <a href="https://saweria.co/KenzoDev" target="_blank" class="kontak-btn saweria">
+                        💖 Saweria (Donasi)
+                    </a>
+                </div>
+            </div>
+
+            <div class="kontak-footer">
+                <p>Terima kasih telah menggunakan AnimeStream+ 🎬</p>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item" data-page="home">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Home</div>
+            </div>
+            <div class="nav-item" data-page="jadwal">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Jadwal</div>
+            </div>
+            <div class="nav-item" data-page="history">
+                <div class="nav-icon">📜</div>
+                <div class="nav-label">History</div>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profil</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/level.js"></script>
+    <script src="/js/maintenance.js"></script>
+    <script>
+        // Maintenance check untuk halaman kontak
+        (async function() {
+            const allowed = await window.checkMaintenanceAccess();
+            if (!allowed) {
+                window.location.href = '/index.html';
+            }
+        })();
+
+        // Bottom navigation
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', async () => {
+                const page = item.dataset.page;
+                let url = '';
+                if (page === 'home') url = '/index.html';
+                if (page === 'jadwal') url = '/jadwal.html';
+                if (page === 'history') url = '/history.html';
+                if (page === 'profile') url = '/profile.html';
+                if (url) {
+                    const allowed = await window.checkMaintenanceAccess();
+                    if (allowed) window.location.href = url;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

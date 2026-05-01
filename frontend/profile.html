@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>AnimeStream - Profil</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <div class="header">
+            <div class="header-left">
+                <span class="greeting">👤 Profil Saya</span>
+            </div>
+            <div class="header-right">
+                <span class="level-badge" id="levelBadge">⭐ Lv.1 | 0/100 XP | 0 jam</span>
+            </div>
+        </div>
+
+        <div class="profile-container" id="profileContainer">
+            <div class="loading">Memuat profil...</div>
+        </div>
+
+        <div class="bottom-nav">
+    <div class="nav-item" data-page="home">
+        <div class="nav-icon">🏠</div>
+        <div class="nav-label">Home</div>
+    </div>
+    <div class="nav-item" data-page="jadwal">
+        <div class="nav-icon">📅</div>
+        <div class="nav-label">Jadwal</div>
+    </div>
+    <div class="nav-item" data-page="history">
+        <div class="nav-icon">📜</div>
+        <div class="nav-label">History</div>
+    </div>
+    <div class="nav-item" data-page="kontak">
+        <div class="nav-icon">📞</div>
+        <div class="nav-label">Kontak</div>
+    </div>
+    <div class="nav-item" data-page="profile">
+        <div class="nav-icon">👤</div>
+        <div class="nav-label">Profil</div>
+    </div>
+</div>
+    </div>
+
+    <script src="/js/profile.js"></script>
+    <script src="/js/level.js"></script>
+    <script src="/js/maintenance.js"></script>
+    <script>
+        (async function() {
+            const allowed = await checkMaintenanceAccess();
+            if (!allowed) {
+                window.location.href = '/index.html';
+            }
+        })();
+    </script>
+</body>
+</html>
