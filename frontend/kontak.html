@@ -88,7 +88,23 @@
     </div>
 
     <script src="/js/level.js"></script>
+    <!-- MAINTENANCE.js TETAP DIPANGGIL, TAPI TIDAK DIPAKSA UNTUK BLOKIR -->
     <script src="/js/maintenance.js"></script>
-    <!-- TIDAK ADA blokir maintenance untuk halaman kontak -->
+    <!-- TIDAK ADA PEMANGGILAN checkMaintenanceAccess() DI SINI -->
+    <script>
+        // Bottom navigation (tanpa blokir maintenance)
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const page = item.dataset.page;
+                let url = '';
+                if (page === 'home') url = '/index.html';
+                if (page === 'jadwal') url = '/jadwal.html';
+                if (page === 'history') url = '/history.html';
+                if (page === 'kontak') url = '/kontak.html';
+                if (page === 'profile') url = '/profile.html';
+                if (url) window.location.href = url;
+            });
+        });
+    </script>
 </body>
 </html>
