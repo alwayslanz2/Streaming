@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>AnimeStream - Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">🎬</div>
+            <div class="loading-title">AnimeStream<span class="loading-plus">+</span></div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Memuat anime terbaik untukmu...</div>
+        </div>
+    </div>
+
+    <div class="app-container" id="appContainer" style="display: none;">
+        <div class="header">
+            <div class="header-left">
+                <span class="greeting">🏠 Home</span>
+            </div>
+            <div class="header-right">
+                <span class="level-badge" id="levelBadge">⭐ Lv.1 | 0/100 XP | 0 jam</span>
+            </div>
+        </div>
+
+        <div class="search-bar" onclick="location.href='/all-anime.html'">
+            <span class="search-icon">🔍</span>
+            <span class="search-text">Cari Anime Di Sini</span>
+        </div>
+
+        <div class="genre-container">
+            <div class="genre-list" id="genreList"></div>
+        </div>
+
+        <div class="section-header">
+            <h2 class="section-title">🔥 Trending Now</h2>
+            <span class="section-link" onclick="location.href='/all-anime.html'">Lihat Semua ></span>
+        </div>
+
+        <div class="anime-list" id="trendingList">
+            <div class="loading">Memuat...</div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item active" data-page="home">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Home</div>
+            </div>
+            <div class="nav-item" data-page="jadwal">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Jadwal</div>
+            </div>
+            <div class="nav-item" data-page="history">
+                <div class="nav-icon">📜</div>
+                <div class="nav-label">History</div>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profil</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/level.js"></script>
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loadingScreen = document.getElementById('loadingScreen');
+                const appContainer = document.getElementById('appContainer');
+                if (loadingScreen) {
+                    loadingScreen.style.opacity = '0';
+                    loadingScreen.style.transition = 'opacity 0.5s ease';
+                    setTimeout(function() {
+                        loadingScreen.style.display = 'none';
+                        if (appContainer) {
+                            appContainer.style.display = 'block';
+                            appContainer.style.animation = 'fadeInUp 0.5s ease';
+                        }
+                    }, 500);
+                } else {
+                    if (appContainer) appContainer.style.display = 'block';
+                }
+            }, 1500);
+        });
+    </script>
+</body>
+</html>

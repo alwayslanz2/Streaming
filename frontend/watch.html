@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Now Playing - AnimeStream</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="watch-container">
+        <div class="header watch-header">
+            <div class="header-left">
+                <span class="back-btn" onclick="history.back()">← Kembali</span>
+            </div>
+            <div class="header-right">
+                <span class="level-badge" id="levelBadge">⭐ Lv.1 | 0/100 XP | 0 jam</span>
+            </div>
+        </div>
+
+        <div class="video-wrapper">
+            <!-- IFRAME UNTUK GOOGLE DRIVE -->
+            <div id="googleDrivePlayer" style="display: none; width:100%;">
+                <iframe id="driveIframe" width="100%" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            </div>
+            <!-- VIDEO TAG UNTUK MP4/MKV LANGSUNG -->
+            <video id="animePlayer" controls autoplay style="display: none; width:100%">
+                <source id="videoSource" src="" type="video/mp4">
+                Browser tidak support video tag.
+            </video>
+            <button id="skipBtn" class="skip-btn" style="display: none;">⏩ Skip Opening (90 detik)</button>
+        </div>
+
+        <div class="player-info">
+            <h2 id="episodeTitle">Memuat...</h2>
+            <div class="progress-container">
+                <div class="progress-fill" id="progressBar" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <div class="bottom-nav">
+            <div class="nav-item" data-page="home">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Home</div>
+            </div>
+            <div class="nav-item" data-page="jadwal">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Jadwal</div>
+            </div>
+            <div class="nav-item" data-page="history">
+                <div class="nav-icon">📜</div>
+                <div class="nav-label">History</div>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profil</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/player.js"></script>
+    <script src="/js/level.js"></script>
+</body>
+</html>

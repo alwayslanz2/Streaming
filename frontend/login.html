@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Login - AnimeStream</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <h2>🎬 Login</h2>
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Email" value="admin@animestream.com">
+                <input type="password" id="password" placeholder="Password" value="Admin123">
+                <button type="submit">Login</button>
+            </form>
+            <p>Belum punya akun? <a href="/register.html">Daftar</a></p>
+            <div id="errorMsg" class="error-msg"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            
+            errorMsg.innerText = 'Memproses...';
+            errorMsg.style.color = '#f9ca24';
+            
+            try {
+                const res = await axios.post('/api/auth/login', { email, password });
+                localStorage.setItem('token', res.data.token);
+                localStorage.setItem('user', JSON.stringify(res.data.user));
+                window.location.href = '/index.html';
+            } catch (err) {
+                errorMsg.innerText = err.response?.data?.error || 'Login gagal';
+                errorMsg.style.color = '#e94560';
+            }
+        });
+        
+        if (localStorage.getItem('token')) {
+            window.location.href = '/index.html';
+        }
+    </script>
+</body>
+</html>
