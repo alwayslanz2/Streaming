@@ -1782,5 +1782,48 @@
       }
     ],
     "id": "36"
+  },
+  {
+    "title": "Tadaima, Ojamasaremasu!",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-v-gDiOexhN5iqFvvmBp-xlJnc7p_nWVBQf6loJGQ0aJ2tJP15vz7xybR&s=10",
+    "synopsis": "Rinko Nakama, seorang karyawan kantoran yang juga Otaku akut ini hidup sendiri di sebuah apartemen. Di sana, ia kerap kali menonton anime hingga suatu hari dindingnya di tendang oleh tetangganya. Maka dari itu, Rinko meminta bantuan Satsuki Akito untuk menegur tetangga tersebut. Namun, siapa sangka bahwa tetangganya yang resek ini adalah Usada Haruma. Ia merupakan author dari anime favorit Rinko. Kini, pertemuannya dengan Usada dan Satsuki akan mengubah kehidupan Rinko sepenuhnya.",
+    "genre": [
+      "Romance",
+      "Shoujo",
+      "Comedy",
+      "Adult Cast",
+      "Otaku Culture"
+    ],
+    "studio": "Tatsunoko Production",
+    "rating": 6.66,
+    "views": "404,0K",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-29",
+    "scheduleDay": "Rabu",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1zMclquKTWcjjS3DfsGs2ZFZK1pjGZsaE/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1FSRP7WJx3BEd7qBFEHJ1gLwuHpPa2j9K/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1Hrk39L037yb0cB_Yfh5dHjYw29luZnwi/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1mqcqXVv6AofM7axV6_yied1GyE0fFBen/view?usp=drivesdk"
+      }
+    ],
+    "id": "37"
   }
 ]
