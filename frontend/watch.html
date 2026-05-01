@@ -37,39 +37,54 @@
         </div>
 
         <div class="bottom-nav">
-    <div class="nav-item" data-page="home">
-        <div class="nav-icon">🏠</div>
-        <div class="nav-label">Home</div>
-    </div>
-    <div class="nav-item" data-page="jadwal">
-        <div class="nav-icon">📅</div>
-        <div class="nav-label">Jadwal</div>
-    </div>
-    <div class="nav-item" data-page="history">
-        <div class="nav-icon">📜</div>
-        <div class="nav-label">History</div>
-    </div>
-    <div class="nav-item" data-page="kontak">
-        <div class="nav-icon">📞</div>
-        <div class="nav-label">Kontak</div>
-    </div>
-    <div class="nav-item" data-page="profile">
-        <div class="nav-icon">👤</div>
-        <div class="nav-label">Profil</div>
-    </div>
-</div>
+            <div class="nav-item" data-page="home">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Home</div>
+            </div>
+            <div class="nav-item" data-page="jadwal">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Jadwal</div>
+            </div>
+            <div class="nav-item" data-page="history">
+                <div class="nav-icon">📜</div>
+                <div class="nav-label">History</div>
+            </div>
+            <div class="nav-item" data-page="kontak">
+                <div class="nav-icon">📞</div>
+                <div class="nav-label">Kontak</div>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profil</div>
+            </div>
+        </div>
     </div>
 
     <script src="/js/player.js"></script>
     <script src="/js/level.js"></script>
     <script src="/js/maintenance.js"></script>
     <script>
-        (async function() {
-            const allowed = await checkMaintenanceAccess();
-            if (!allowed) {
-                window.location.href = '/index.html';
-            }
-        })();
+        document.querySelectorAll('.nav-item').forEach(async (item) => {
+            item.addEventListener('click', async () => {
+                const page = item.dataset.page;
+                
+                if (page === 'kontak') {
+                    window.location.href = '/kontak.html';
+                    return;
+                }
+                
+                let url = '';
+                if (page === 'home') url = '/index.html';
+                if (page === 'jadwal') url = '/jadwal.html';
+                if (page === 'history') url = '/history.html';
+                if (page === 'profile') url = '/profile.html';
+                
+                if (url) {
+                    const allowed = await window.checkMaintenanceAccess();
+                    if (allowed) window.location.href = url;
+                }
+            });
+        });
     </script>
 </body>
 </html>
