@@ -30,8 +30,8 @@ app.use(maintenanceMiddleware);
 // Static files
 app.use('/css', express.static(path.join(__dirname, '../frontend/css')));
 app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
-app.use('/data', express.static(path.join(__dirname, '../data')));
-app.use('/videos', express.static(path.join(__dirname, '../frontend/videos')));
+app.use('/data', express.static(path.join(__dirname, '../../data')));
+app.use('/videos', express.static(path.join(__dirname, '../../frontend/videos')));
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 if (!process.env.MONGODB_URI) {
