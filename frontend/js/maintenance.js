@@ -2,13 +2,11 @@
 
 let maintenanceCache = null;
 let lastFetch = 0;
-const CACHE_TTL = 30000; // 30 detik
+const CACHE_TTL = 30000;
 
 async function getMaintenanceData() {
     const now = Date.now();
-    if (maintenanceCache && (now - lastFetch) < CACHE_TTL) {
-        return maintenanceCache;
-    }
+    if (maintenanceCache && (now - lastFetch) < CACHE_TTL) return maintenanceCache;
     try {
         const res = await fetch('/data/maintenance.json');
         const data = await res.json();
@@ -16,7 +14,6 @@ async function getMaintenanceData() {
         lastFetch = now;
         return data;
     } catch (err) {
-        console.error('Gagal fetch maintenance.json:', err);
         return { maintenance_mode: false, access_code: 'REU2024' };
     }
 }
@@ -62,6 +59,5 @@ async function checkMaintenanceAccess() {
     }
 }
 
-// Export fungsi ke global
 window.checkMaintenanceAccess = checkMaintenanceAccess;
 window.getMaintenanceData = getMaintenanceData;
