@@ -88,11 +88,9 @@
     </div>
 
     <script src="/js/level.js"></script>
-    <!-- MAINTENANCE.js TETAP DIPANGGIL, TAPI TIDAK DIPAKSA UNTUK BLOKIR -->
     <script src="/js/maintenance.js"></script>
-    <!-- TIDAK ADA PEMANGGILAN checkMaintenanceAccess() DI SINI -->
     <script>
-        // Bottom navigation (tanpa blokir maintenance)
+        // Bottom navigation - kontak tidak perlu maintenance check
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 const page = item.dataset.page;
