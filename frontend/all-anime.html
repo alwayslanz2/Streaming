@@ -52,5 +52,14 @@
 
     <script src="/js/all-anime.js"></script>
     <script src="/js/level.js"></script>
+    <script src="/js/maintenance.js"></script>
+    <script>
+        (async function() {
+            const allowed = await checkMaintenanceAccess();
+            if (!allowed) {
+                window.location.href = '/index.html';
+            }
+        })();
+    </script>
 </body>
 </html>
