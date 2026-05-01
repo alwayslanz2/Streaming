@@ -1698,5 +1698,48 @@
       }
     ],
     "id": "34"
+  },
+  {
+    "title": "Kanojo, Okarishimasu Season 5",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTaaDhNflN9LJus3_TJJcUI7ki5vh_xzdX9g5amtzC2eA&s=10",
+    "synopsis": "Season ke-lima dari seris anime Kanojo, Okarishimasu.",
+    "genre": [
+      "Shounen",
+      "Romance",
+      "Comedy",
+      "Harem",
+      "Adult Cast"
+    ],
+    "studio": "TMS Entertainment",
+    "rating": 6.28,
+    "views": "854,9K",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-29",
+    "scheduleDay": "Rabu",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1uKk3aXf2cqNOOEnNzkIxd_urqRXP4a8m/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/17y0zG5X_tBu7S9BIk6SBwdWoMuUi8lsV/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1RGv2ns7C-8sh2nyoMYodFtEsxdVYcrEM/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1z8fcbCbQIY2gBEnTPZX2omBEoB0egMws/view?usp=drivesdk"
+      }
+    ],
+    "id": "35"
   }
 ]
