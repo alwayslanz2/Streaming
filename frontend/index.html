@@ -46,27 +46,27 @@
         </div>
 
         <div class="bottom-nav">
-    <div class="nav-item" data-page="home">
-        <div class="nav-icon">🏠</div>
-        <div class="nav-label">Home</div>
-    </div>
-    <div class="nav-item" data-page="jadwal">
-        <div class="nav-icon">📅</div>
-        <div class="nav-label">Jadwal</div>
-    </div>
-    <div class="nav-item" data-page="history">
-        <div class="nav-icon">📜</div>
-        <div class="nav-label">History</div>
-    </div>
-    <div class="nav-item" data-page="kontak">
-        <div class="nav-icon">📞</div>
-        <div class="nav-label">Kontak</div>
-    </div>
-    <div class="nav-item" data-page="profile">
-        <div class="nav-icon">👤</div>
-        <div class="nav-label">Profil</div>
-    </div>
-</div>
+            <div class="nav-item active" data-page="home">
+                <div class="nav-icon">🏠</div>
+                <div class="nav-label">Home</div>
+            </div>
+            <div class="nav-item" data-page="jadwal">
+                <div class="nav-icon">📅</div>
+                <div class="nav-label">Jadwal</div>
+            </div>
+            <div class="nav-item" data-page="history">
+                <div class="nav-icon">📜</div>
+                <div class="nav-label">History</div>
+            </div>
+            <div class="nav-item" data-page="kontak">
+                <div class="nav-icon">📞</div>
+                <div class="nav-label">Kontak</div>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <div class="nav-icon">👤</div>
+                <div class="nav-label">Profil</div>
+            </div>
+        </div>
     </div>
 
     <script src="/js/main.js"></script>
@@ -93,13 +93,13 @@
             }, 1500);
         });
         
-        // Banner maintenance jika mode ON
+        // Banner maintenance jika mode ON (hanya notifikasi, tidak blokir)
         (async function() {
-            const data = await getMaintenanceData();
-            if (data.maintenance_mode === true) {
+            const data = await window.getMaintenanceData();
+            if (data && data.maintenance_mode === true) {
                 const banner = document.createElement('div');
                 banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#e94560,#ff6b6b);color:white;text-align:center;padding:12px;z-index:9999;font-size:13px;font-weight:500;box-shadow:0 2px 10px rgba(0,0,0,0.3);';
-                banner.innerHTML = '🔧 MAINTENANCE MODE AKTIF 🔧<br>Fitur selain Home membutuhkan kode akses.';
+                banner.innerHTML = '🔧 MAINTENANCE MODE AKTIF 🔧<br>Fitur selain Home & Kontak membutuhkan kode akses.';
                 document.body.prepend(banner);
                 document.body.style.paddingTop = '60px';
             }
