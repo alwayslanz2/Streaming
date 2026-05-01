@@ -1,21 +1,52 @@
 let scheduleData = [];
 
+function generateWeekNav() {
+    const container = document.getElementById('weekNav');
+    if (!container) return;
+    const today = new Date();
+    const days = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+    let html = '';
+    for (let i = 0; i < 7; i++) {
+        const date = new Date(today);
+        date.setDate(today.getDate() + i);
+        const dayName = days[date.getDay()];
+        const dateNum = date.getDate();
+        const isActive = (i === 0);
+        html += `<div class="week-day ${isActive ? 'active' : ''}" data-day="${dayName}" data-date="${dateNum}">${dayName}<br><span class="date">${dateNum}</span></div>`;
+    }
+    container.innerHTML = html;
+    document.querySelectorAll('.week-day').forEach(day => {
+        day.addEventListener('click', function() {
+            document.querySelectorAll('.week-day').forEach(d => d.classList.remove('active'));
+            this.classList.add('active');
+            const dayName = this.dataset.day;
+            filterScheduleByDay(dayName);
+        });
+    });
+}
+
+function filterScheduleByDay(dayName) {
+    const container = document.getElementById('scheduleList');
+    const filtered = scheduleData.filter(a => a.day === dayName);
+    if (filtered.length === 0) {
+        container.innerHTML = '<div class="loading">Tidak ada jadwal untuk hari ini</div>';
+        return;
+    }
+    renderSchedule(filtered);
+}
+
 async function loadSchedule() {
     const container = document.getElementById('scheduleList');
     if (!container) return;
-    
     try {
         const res = await fetch('/api/anime/schedule');
         scheduleData = await res.json();
-        
         if (!scheduleData || scheduleData.length === 0) {
             container.innerHTML = '<div class="loading">Tidak ada jadwal</div>';
             return;
         }
-        
-        renderSchedule(scheduleData);
-        window.scheduleData = scheduleData;
-        
+        const todayData = scheduleData.filter(a => a.isToday === true);
+        renderSchedule(todayData.length > 0 ? todayData : scheduleData);
     } catch (err) {
         console.error('Gagal load schedule:', err);
         container.innerHTML = '<div class="loading">Gagal memuat jadwal</div>';
@@ -28,56 +59,40 @@ function renderSchedule(data) {
         container.innerHTML = '<div class="loading">Tidak ada jadwal</div>';
         return;
     }
-    
     container.innerHTML = data.map(anime => `
         <div class="schedule-item" onclick="goToDetail('${anime.id}')">
             <img class="schedule-cover" src="${anime.cover}" onerror="this.src='https://placehold.co/60x85/1a1a1a/888?text=No+Image'">
             <div class="schedule-info">
                 <div class="schedule-title">${anime.title}</div>
                 <div class="schedule-episode">${anime.episode}</div>
-                <div class="schedule-stats">
-                    <span>⭐ ${anime.rating}</span>
-                    <span>👁️ ${anime.views}</span>
-                </div>
+                <div class="schedule-date">📅 ${anime.fullDate || anime.date + '/' + anime.month}</div>
+                <div class="schedule-stats"><span>⭐ ${anime.rating}</span><span>👁️ ${anime.views}</span></div>
                 <div class="schedule-status ${anime.status.includes('Menunggu') ? 'status-waiting' : ''}">${anime.status}</div>
             </div>
         </div>
     `).join('');
 }
 
-function initWeekNav() {
-    document.querySelectorAll('.week-day').forEach(day => {
-        day.addEventListener('click', async function() {
-            document.querySelectorAll('.week-day').forEach(d => d.classList.remove('active'));
-            this.classList.add('active');
-            const dayName = this.dataset.day;
-            
-            if (!window.scheduleData) {
-                const res = await fetch('/api/anime/schedule');
-                window.scheduleData = await res.json();
-            }
-            
-            const filtered = window.scheduleData.filter(a => a.day === dayName);
-            renderSchedule(filtered);
-        });
-    });
+async function goToDetail(id) {
+    const allowed = await window.checkMaintenanceAccess();
+    if (allowed) window.location.href = `/anime-detail.html?id=${id}`;
 }
 
-function goToDetail(id) {
-    window.location.href = `/anime-detail.html?id=${id}`;
-}
-
-document.querySelectorAll('.nav-item').forEach(item => {
-    item.addEventListener('click', () => {
+document.querySelectorAll('.nav-item').forEach(async (item) => {
+    item.addEventListener('click', async () => {
         const page = item.dataset.page;
-        if (page === 'home') window.location.href = '/index.html';
-        if (page === 'jadwal') window.location.href = '/jadwal.html';
-        if (page === 'history') window.location.href = '/history.html';
-        if (page === 'profile') window.location.href = '/profile.html';
+        let url = '';
+        if (page === 'home') url = '/index.html';
+        if (page === 'jadwal') url = '/jadwal.html';
+        if (page === 'history') url = '/history.html';
+        if (page === 'profile') url = '/profile.html';
+        if (url) {
+            const allowed = await window.checkMaintenanceAccess();
+            if (allowed) window.location.href = url;
+        }
     });
 });
 
 window.goToDetail = goToDetail;
-
+generateWeekNav();
 loadSchedule();
-setTimeout(initWeekNav, 100);
