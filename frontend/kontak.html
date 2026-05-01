@@ -76,6 +76,10 @@
                 <div class="nav-icon">📜</div>
                 <div class="nav-label">History</div>
             </div>
+            <div class="nav-item" data-page="kontak">
+                <div class="nav-icon">📞</div>
+                <div class="nav-label">Kontak</div>
+            </div>
             <div class="nav-item" data-page="profile">
                 <div class="nav-icon">👤</div>
                 <div class="nav-label">Profil</div>
@@ -85,30 +89,6 @@
 
     <script src="/js/level.js"></script>
     <script src="/js/maintenance.js"></script>
-    <script>
-        // Maintenance check untuk halaman kontak
-        (async function() {
-            const allowed = await window.checkMaintenanceAccess();
-            if (!allowed) {
-                window.location.href = '/index.html';
-            }
-        })();
-
-        // Bottom navigation
-        document.querySelectorAll('.nav-item').forEach(item => {
-            item.addEventListener('click', async () => {
-                const page = item.dataset.page;
-                let url = '';
-                if (page === 'home') url = '/index.html';
-                if (page === 'jadwal') url = '/jadwal.html';
-                if (page === 'history') url = '/history.html';
-                if (page === 'profile') url = '/profile.html';
-                if (url) {
-                    const allowed = await window.checkMaintenanceAccess();
-                    if (allowed) window.location.href = url;
-                }
-            });
-        });
-    </script>
+    <!-- TIDAK ADA blokir maintenance untuk halaman kontak -->
 </body>
 </html>
