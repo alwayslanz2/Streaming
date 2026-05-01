@@ -93,7 +93,7 @@
             }, 1500);
         });
         
-        // Banner maintenance jika mode ON (hanya notifikasi, tidak blokir)
+        // Banner maintenance jika mode ON
         (async function() {
             const data = await window.getMaintenanceData();
             if (data && data.maintenance_mode === true) {
@@ -104,6 +104,29 @@
                 document.body.style.paddingTop = '60px';
             }
         })();
+
+        // Bottom navigation dengan bypass kontak
+        document.querySelectorAll('.nav-item').forEach(async (item) => {
+            item.addEventListener('click', async () => {
+                const page = item.dataset.page;
+                
+                if (page === 'kontak') {
+                    window.location.href = '/kontak.html';
+                    return;
+                }
+                
+                let url = '';
+                if (page === 'home') url = '/index.html';
+                if (page === 'jadwal') url = '/jadwal.html';
+                if (page === 'history') url = '/history.html';
+                if (page === 'profile') url = '/profile.html';
+                
+                if (url) {
+                    const allowed = await window.checkMaintenanceAccess();
+                    if (allowed) window.location.href = url;
+                }
+            });
+        });
     </script>
 </body>
 </html>
