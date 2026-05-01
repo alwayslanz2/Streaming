@@ -10,6 +10,9 @@ import animeRoutes from './routes/anime.js';
 import historyRoutes from './routes/history.js';
 import userRoutes from './routes/user.js';
 import User from './models/User.js';
+import cookieParser from 'cookie-parser';
+import maintenanceMiddleware from './middleware/maintenance.js';
+import maintenanceRoutes from './routes/maintenance.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -21,6 +24,8 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
+app.use(maintenanceMiddleware);
 
 // Static files
 app.use('/css', express.static(path.join(__dirname, '../frontend/css')));
@@ -92,6 +97,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/anime', animeRoutes);
 app.use('/api/history', historyRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/maintenance', maintenanceRoutes);
 
 // HTML Routes
 app.get('/', (req, res) => {
