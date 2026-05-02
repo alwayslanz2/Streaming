@@ -2023,5 +2023,51 @@
       }
     ],
     "id": "40"
+  },
+  {
+    "title": "Dr. stone: Science Future Part 3",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8TtiyRnFW1K5LcfmQv8MfnxDrbSLiuVD6QZjzoBhlcQMrSBW4FoBcwdU&s=10",
+    "synopsis": "Part ketiga dari Dr. Stone: Science Future.",
+    "genre": [
+      "Shounen",
+      "Comedy",
+      "Adventure"
+    ],
+    "studio": "ne found, add some Studios: TMS Entertainment",
+    "rating": 7.36,
+    "views": "1,5M",
+    "latestEpisode": 5,
+    "uploadDate": "2026-04-30",
+    "scheduleDay": "Kamis",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1hCaNLPd3xtT6SnvtbPPYU5r7xX6_0Ucy/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1eL5GSRVBuvvUZkydYhsNRS9LgPp12F4B/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1fX30xZlIBVjxbrfaoTO68feSlyFioUeO/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1ZCccfDvNJBU_yEb-oloWIqKW4onnIwdX/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1CFwQfduwi75e34Chr9a358gNXRF_PlrC/view?usp=drivesdk"
+      }
+    ],
+    "id": "41"
   }
 ]
