@@ -2579,5 +2579,52 @@
       }
     ],
     "id": "51"
+  },
+  {
+    "title": "Haibara-kun no Tsuyokute Seishun New Game",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQBuOqQIoEZYkY2ET6CPwA49a6d_xI8oU2WIpjWDDk7ow&s=10",
+    "synopsis": "Natsuki Haibara, seorang pemuda yang saat ini tengah bersiap untuk memasuki dunia kerja mulai membayangkan bagaimana kehidupannya di masa lalu yang gagal total. Sebab, di masa remaja Haibara tidak mengalami banyak momen menarikMaka dari itu, ia pun meminta satu hal untuk bisa mengulang kembali masa remaja tersebut. Ternyata, permintaan tersebut dikabulkan. Kini, ia kembali ke masa SMA dan memutuskan untuk memulai proyek yang dikenal Remaja Pelangi. Tujuannya, yakni menikmati masa SMA dan berpacaran dengan salah satu gadis incarannya yaitu Hikari Hoshimiya. Mampukah Haibara mewujudkan tujuannya tersebut?",
+    "genre": [
+      "Romance",
+      "School",
+      "Comedy",
+      "Time Travel"
+    ],
+    "studio": "Studio Comet",
+    "rating": 6.82,
+    "views": "1,5M",
+    "latestEpisode": 5,
+    "uploadDate": "2026-05-01",
+    "scheduleDay": "Jumat",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1twCgFUQ4jQJnST__5ZjAdFrHSoulNjwU/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1kDL9Uq8hNKcF99uhM2CDCGpnpQmtsXll/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1zwEzzNOMoSuoXksi8u6JQ2QRSPGTibGy/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1ZVZV9DBlNf-KwdV1-BEW8zSD829qAuty/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1kPdBZos9nkoz-S3xsHqQDK6NWyqqDEfJ/view?usp=drivesdk"
+      }
+    ],
+    "id": "52"
   }
 ]
