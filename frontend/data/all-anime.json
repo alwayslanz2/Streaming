@@ -1867,5 +1867,84 @@
       }
     ],
     "id": "38"
+  },
+  {
+    "title": "Arne no Jikenbo",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQIbzre9PaESh2kLPmMlCaLryghFI2ui7RJlVigrbZgJyYAjReZisESfgpA&s=10",
+    "synopsis": "Di dunia ini, terdapat manusia yang memercayai keberadaan Jingai dan juga tidak.Salah satu diantaranya adalah Louis Hartmann. Kini dirinya hidup sendirian setelah sang ayah teras dalam sebuah kasus pembunuhan berantai. Menurut informasi yang beredar, insiden tersebut melibatkan Vampire. Namun, Louis tidak percaya hal tersebut. la bertekad untuk mencari pelaku tersebut sendiri. Nah, Louis pun bertemu dengan Arne Neuntoter dan Lynn Reinweib yang bisa membantu Louis mencari pelaku yang membunuh ayahnya.",
+    "genre": [
+      "Fantasy",
+      "Mystery",
+      "Vampire"
+    ],
+    "studio": "SILVER LINK.",
+    "rating": 6.54,
+    "views": "1,3M",
+    "latestEpisode": 12,
+    "uploadDate": "2025-03-25",
+    "isTrending": false,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1uA_Gs294s7LSmd9E8XWbEVmbLr15CZS6/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/11NiNpbn9qYqfLFnnNUrOKWCEk-xOQo85/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1Ppn3JrjIAu1hY190l898cDtOzpZFaA40/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1JFK-Xob0olMAsFXqpPEPWtoHX1LB0jNy/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/18EL3evrCokrgHUr9wbc0f-u_FElB8jvX/view?usp=drivesdk"
+      },
+      {
+        "number": 6,
+        "title": "Eps6",
+        "videoUrl": "https://drive.google.com/file/d/15vyr41AAazf68C7MVPEwIzPgYBbPHENp/view?usp=drivesdk"
+      },
+      {
+        "number": 7,
+        "title": "Eps7",
+        "videoUrl": "https://drive.google.com/file/d/1rOCnGKXJLLjKziSNuSb7Pin3mcLNlig4/view?usp=drivesdk"
+      },
+      {
+        "number": 8,
+        "title": "Eps8",
+        "videoUrl": "https://drive.google.com/file/d/1VgpvOfkxVx4x9ZPnmhJ6O3g7J_gmJmS0/view?usp=drivesdk"
+      },
+      {
+        "number": 9,
+        "title": "Eps9",
+        "videoUrl": "https://drive.google.com/file/d/1GqYuiyeIgGlaIazb54BGwpWwMy_n-n-O/view?usp=drivesdk"
+      },
+      {
+        "number": 10,
+        "title": "Eps10",
+        "videoUrl": "https://drive.google.com/file/d/1r3RQ7N6Y0DTrlhDSoVMOiYjOUi7JMlhv/view?usp=drivesdk"
+      },
+      {
+        "number": 11,
+        "title": "Eps11",
+        "videoUrl": "https://drive.google.com/file/d/1yh9CCGkHxqlumZR2zoVAlq1n3Ri-xhzL/view?usp=drivesdk"
+      },
+      {
+        "number": 12,
+        "title": "Eps12 (End)",
+        "videoUrl": "https://drive.google.com/file/d/1NxKV3QdQiUwLtc4bAeC0NcdLmHKquV6F/view?usp=drivesdk"
+      }
+    ],
+    "id": "39"
   }
 ]
