@@ -4,13 +4,16 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import http from 'http';
+import { Server as SocketServer } from 'socket.io';
 import bcrypt from 'bcryptjs';
 import authRoutes from './routes/auth.js';
 import animeRoutes from './routes/anime.js';
 import historyRoutes from './routes/history.js';
 import userRoutes from './routes/user.js';
 import User from './models/User.js';
-
+import Chat from './models/Chat.js';
+import { startChatCleanupJob } from './cron/cleanChat.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,14 +26,14 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-
-// Static files
+// ========== STATIC FILES ==========
 app.use('/css', express.static(path.join(__dirname, '../frontend/css')));
 app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
-app.use('/data', express.static(path.join(__dirname, '../data')));
-app.use('/videos', express.static(path.join(__dirname, '../../frontend/videos')));
+app.use('/data', express.static(path.join(__dirname, '../frontend/data')));
+app.use('/videos', express.static(path.join(__dirname, '../frontend/videos')));
 app.use(express.static(path.join(__dirname, '../frontend')));
 
+// ========== DATABASE CONNECTION ==========
 if (!process.env.MONGODB_URI) {
   console.error('❌ ERROR: MONGODB_URI tidak ditemukan di .env!');
   process.exit(1);
@@ -42,11 +45,9 @@ async function ensureAdminUser() {
         const adminPassword = process.env.ADMIN_PASSWORD || 'Admin123';
         const adminUsername = process.env.ADMIN_USERNAME || 'AdminSuper';
         
-        // Cek admin
         let adminUser = await User.findOne({ email: adminEmail });
         
         if (!adminUser) {
-            // Buat admin baru
             const salt = await bcrypt.genSalt(10);
             const hashedPassword = await bcrypt.hash(adminPassword, salt);
             adminUser = new User({
@@ -65,7 +66,6 @@ async function ensureAdminUser() {
             console.log('✅ Admin super user already exists');
         }
         
-        // Verifikasi password
         const isValid = await bcrypt.compare(adminPassword, adminUser.password);
         if (isValid) {
             console.log('✅ Admin password valid');
@@ -87,16 +87,80 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(async () => {
     console.log('✅ MongoDB connected');
     await ensureAdminUser();
+    startChatCleanupJob(); // Start cron job untuk auto delete chat jam 00 WIB
   })
   .catch(err => console.error('❌ MongoDB error:', err));
 
+// ========== SOCKET.IO (CHAT GLOBAL) ==========
+const server = http.createServer(app);
+const io = new SocketServer(server, {
+    cors: {
+        origin: '*',
+        methods: ['GET', 'POST']
+    }
+});
+
+io.on('connection', (socket) => {
+    console.log('🔌 User connected:', socket.id);
+    
+    // Kirim history chat (100 pesan terakhir)
+    (async () => {
+        try {
+            const history = await Chat.find().sort({ timestamp: 1 }).limit(100);
+            socket.emit('chat-history', history);
+        } catch (err) {
+            console.error('Error sending chat history:', err);
+        }
+    })();
+    
+    // Listen untuk pesan baru
+    socket.on('send-message', async (data) => {
+        const { userId, username, message } = data;
+        
+        if (!message || message.trim() === '') return;
+        if (!userId || !username) return;
+        
+        try {
+            const newChat = new Chat({
+                userId,
+                username,
+                message: message.substring(0, 500),
+                timestamp: new Date()
+            });
+            await newChat.save();
+            
+            // Broadcast ke semua user
+            io.emit('new-message', newChat);
+        } catch (err) {
+            console.error('Error saving message:', err);
+        }
+    });
+    
+    // Listen untuk hapus pesan (hanya admin)
+    socket.on('delete-message', async (data) => {
+        const { messageId, isAdmin } = data;
+        if (!isAdmin) return;
+        
+        try {
+            await Chat.findByIdAndDelete(messageId);
+            io.emit('message-deleted', messageId);
+        } catch (err) {
+            console.error('Error deleting message:', err);
+        }
+    });
+    
+    socket.on('disconnect', () => {
+        console.log('🔌 User disconnected:', socket.id);
+    });
+});
+
+// ========== API ROUTES ==========
 app.use('/api/auth', authRoutes);
 app.use('/api/anime', animeRoutes);
 app.use('/api/history', historyRoutes);
 app.use('/api/user', userRoutes);
 
-
-// HTML Routes
+// ========== HTML ROUTES ==========
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/index.html'));
 });
@@ -126,11 +190,15 @@ app.get('/login.html', (req, res) => {
 });
 app.get('/register.html', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/register.html'));
+});
 app.get('/kontak.html', (req, res) => {
   res.sendFile(path.join(__dirname, '../frontend/kontak.html'));
 });
+app.get('/chat.html', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/chat.html'));
 });
 
-app.listen(PORT, () => {
+// ========== START SERVER ==========
+server.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
