@@ -2626,5 +2626,53 @@
       }
     ],
     "id": "52"
+  },
+  {
+    "title": "Reincarnation no Kaben",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQcUUSIdSlu436dc5bWBUxUJ1cMX3SQmlrr639JBrhz1A&s=10",
+    "synopsis": "Touya Senji, seorang pria yang menganggap bahwa dirinya sangatlah rendah mengingat ia selalu dibanding-bandingkan dengan sang kakak yang memiliki bakat. Untuk itu, dirinya pun belajar dengan begitu giat guna mendapat nilai sempurna. Sayangnya, hasil yang ia dapatkan tidaklah memuaskan. Suatu hari, Touya bertemu dengan Haito yang merupakan teman masa kecilnya di sekolah dulu. Haito mengatakan kepada Touya bahwa dirinya adalah seorang Mawarimono yang mendapatkan kemampuan dari seseorang.Mengetahui hal tersebut, Touya pun mencoba untuk mendapatkan kekuatan tersebut.",
+    "genre": [
+      "Action",
+      "Shounen",
+      "Supernatural",
+      "Mystery",
+      "Reincarnation"
+    ],
+    "studio": "BENTEN Film",
+    "rating": 6.6,
+    "views": "1,4M",
+    "latestEpisode": 5,
+    "uploadDate": "2026-05-01",
+    "scheduleDay": "Jumat",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1slb7Jy1A-eLpa7sAaUXmXbiniAVAoBr1/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1yhb6g4K3tGBnHwyRgHWcSGYKjjUONhea/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1B-1rzO70MtJn6f7S6ra2FVW5geXDFDP8/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1qufosVHrkRVn0lG2FFRg9c4huBlbzt-Z/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1sYRuhXPzV1o7gWQMQrc1hMHhb5wCuiza/view?usp=drivesdk"
+      }
+    ],
+    "id": "53"
   }
 ]
