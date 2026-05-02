@@ -2246,5 +2246,46 @@
       }
     ],
     "id": "45"
+  },
+  {
+    "title": "Koori no Jouheki",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsk8PZcjwcCrAkFMUlij7fQQGKUaVvkOLGIQy_jnhkzFOcWtX2vtGAw-pO&s=10",
+    "synopsis": "Koyuki Hikawa, siswi SMA yang tak memiliki kemampuan untuk berkomunikasi dengan orang lain tanpa sadar telah membuatnya susah untuk diajak berbicara. Walau begitu, sahabatnya yakni Miki Azumi menjadi orang pertama yang mampu mengajak Koyuki untuk berinteraksi. Suatu hari, seorang siswa laki-laki bernama Minato Amamiya muncul dihadapannya dan entah bagaimana ia justru semakin dekat. Kini, kehidupan Koyuki yang awalnya sangatlah suram telah berubah setelah pertemuannya dengan berbagai orang.",
+    "genre": [
+      "Romance",
+      "School",
+      "Comedy"
+    ],
+    "studio": "Studio KAI",
+    "rating": 7.02,
+    "views": "979,9K",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-24",
+    "scheduleDay": "Kamis",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1O_GeGZ0sv5eluhoBoQhj-WNr8mOFL9kU/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1XHL43M6vv2hfQTczxGMovoBhm_zlCZM7/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1GJIkLklWCrPIZGyKyK-w6VnHwSwVxjAk/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/19hAVGhZ552JbuajcqmNWG1pCTAMA4yRr/view?usp=drivesdk"
+      }
+    ],
+    "id": "46"
   }
 ]
