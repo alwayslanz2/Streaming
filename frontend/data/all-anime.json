@@ -2674,5 +2674,50 @@
       }
     ],
     "id": "53"
+  },
+  {
+    "title": "Mata Korosarete Shimatta no desu ne, Tantei-sama",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyyScoc5FPUHkL8IXFhYujdC6iZUeirSbcqRxO0yQVBA&s=10",
+    "synopsis": "Mengisahkan Sakuya Outsuki, putra dari detektif terkenal yang saat ini masih menginjak bangku SMA. Setiap harinya, Sakuya menerima berbagai permintaan kecil seperti menyelidiki perselingkuhan dan mencari kucing yang hilang. Menariknya, setiap Sakuya menghadapi sebuah kasus ia pasti akan terbunuh. Walau begitu, ternyata dirinya memiliki kemampuan untuk hidup kembali walau telah terbunuh. Berbekal kemampuan tersebut dan juga bantuan dari asistennya yakni Lilithea, Sakuya mencoba untuk menyelesaikan berbagai masalah yang ada.",
+    "genre": [
+      "Romance",
+      "Mystery"
+    ],
+    "studio": "LIDENFILMS",
+    "rating": 6.6,
+    "views": "1,1M",
+    "latestEpisode": 5,
+    "uploadDate": "2026-05-01",
+    "scheduleDay": "Jumat",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1SRscXPyy7qsJzbntjxwF1CKy2Iry4qjZ/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1QeHJIghbLgFjr3UN-eVzb120CJU7WEn6/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/11PnYrLKKC22UZ_mElQP1V70FOophdm8q/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1F7NVOqGsltwuem2-fnlcyCiDAaXC218i/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1P94I_aryY0vNT5HH3CO5JmZJ75rKiQpy/view?usp=drivesdk"
+      }
+    ],
+    "id": "54"
   }
 ]
