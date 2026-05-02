@@ -2200,5 +2200,51 @@
       }
     ],
     "id": "44"
+  },
+  {
+    "title": "Nigashita Sakana wa Ookikatta ga Tsuriageta Sakana ga Ookisugita Ken",
+    "cover": "https://s4.anilist.co/file/anilistcdn/media/anime/cover/large/bx201817-pyfL9F8muPeq.jpg",
+    "synopsis": "Maria Annovazzi atau lebih dikenal dengan Mimi merupakan putri dari keluarga Annovazzi, sebuah bangsawan yang terkenal dengan ilmu bela dirinya. Mimi yang memiliki kemampuan dalam bertarung ini telah dibesarkan guna menjadi penerus keluarga. Namun, lahirnya sang adik membuat Mimi kehilangan status sebagai pewaris. Karena hal itu juga, ayah Mimi memintanya untuk segera mencari calon suami. Sayangnya, hal tersebut tidaklah mudah mengingat hampir semua bangsawan muda telah memiliki pasangan mereka masing-masing. Maka dari itu, Mimi terpaksa untuk pergi ke Kerajaan Rubini guna mencari calon suami sekaligus menempuh pendidikan. Di sana, Mimi yang hampir selesai masa pendidikannya justru mendapati sebuah masalah. Sebab, Pangeran Renato ternyata membatalkan pertunangannya dengan Mimi sedangkan pada kenyataannya tidak pernah ada pertunangan sama sekali. Kini, Mimi menghadapi sebuah masalah yang agak lain.",
+    "genre": [
+      "Fantasy",
+      "Romance",
+      "Comedy"
+    ],
+    "studio": "TROYCA",
+    "rating": 7.04,
+    "views": "1,2M",
+    "latestEpisode": 5,
+    "uploadDate": "2026-04-30",
+    "scheduleDay": "Kamis",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1nSV3Q0hQtysy_6HHxV-38-CHaDkoSEE3/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1G1Ln1Mjgpi8wLfTxsRGVzOyyF1Yvt7ca/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1kKXTRluRxnUwKbnuZZaosVR_FxsltVcY/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1p1nOy1Zj6IjGy8qkT2nV6GS4f-xi3EBe/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1Y2RsqsTA5gzM1HpcDpe4iHx6V0KwLhoH/view?usp=drivesdk"
+      }
+    ],
+    "id": "45"
   }
 ]
