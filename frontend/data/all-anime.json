@@ -2487,5 +2487,50 @@
       }
     ],
     "id": "49"
+  },
+  {
+    "title": "Otonari no Tenshi-sama ni Itsunomanika Dame Ningen ni Sareteita Ken S2",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeeznQcCmvNh7bqp9BQd5MNZg8XR7HuQdh2C8tB4Y0zA&s=10",
+    "synopsis": "Musim ke-dua dari seris anime Otonari no Tenshi-sama ni Itsunomanika Dame Ningen ni Sareteita.",
+    "genre": [
+      "Romance",
+      "School"
+    ],
+    "studio": "Project No.9",
+    "rating": 8.16,
+    "views": "3,3M",
+    "latestEpisode": 5,
+    "uploadDate": "2026-05-01",
+    "scheduleDay": "Jumat",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1Ar2b8abZEppB9Tnh3DffJByjLLemkFOv/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1ku1KbEuBLM2sKK6VkZZUSf6Vop_3T3n1/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1uWrbbDUT3fUin8U9jNmf49eVKz7y8X-r/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1uHTY__7EhnhSF-VVOtWpMcMhT8QCne8L/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1tB0_Zo8cF8zmqpWvanfMx524VCqL2hB1/view?usp=drivesdk"
+      }
+    ],
+    "id": "50"
   }
 ]
