@@ -1825,5 +1825,47 @@
       }
     ],
     "id": "37"
+  },
+  {
+    "title": "Hidarikiki no Eren",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8DQkZUZ0Ma2XJgmI0qLnOebFwZY7ZT77-7tFzMBb3XFSm_OwWHYxpBMPf&s=10",
+    "synopsis": "Bagi sebagian orang, mereka yang telah menjalani setengah kehidupan SMA mulai memikirkan masa depannya. Salah satunya adalah Kouichi Asakura yang memiliki cita-cita untuk masuk ke Universitas Seni dengan tujuan menjadi seorang desainer. Keputusannya ini ia ambil setelah suatu hari dirinya melihat lukisan grafiti di dinding sebuah museum. Usut punya usut, orang yang menggambar grafiti tersebut adalah Eren Yamahishi. Ia adalah seorang siswi SMA yang sayangnya memilih untuk tidak lagi menggunakan bakat melukisnya. Walau begitu, pertemuan keduanya akan membawa lebih banyak cerita lagi. Baik Kouchi sebagai desainer dan Eren sebagai pelukis.",
+    "genre": [
+      "Drama",
+      "Shounen",
+      "Adult Cast",
+      "Visual Arts"
+    ],
+    "studio": "Production I.G, Signal.MD",
+    "rating": 6.54,
+    "views": "516,4K",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-29",
+    "scheduleDay": "Rabu",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1AdCZ-oO5LOzlLHZbC6_FKzbwMPSWXq-y/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/14xCKVgMV9mNheN_hS_06bTrugj2zcodP/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1ewKLJi16j7mNAHLAVOfGG3UNy4CXMEn1/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1RFb7JPVsFwcHecEZGHJpEdo5XlW5XL9l/view?usp=drivesdk"
+      }
+    ],
+    "id": "38"
   }
 ]
