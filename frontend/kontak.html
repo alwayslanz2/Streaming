@@ -26,7 +26,7 @@
             </div>
 
             <div class="kontak-card">
-                <div class="kontak-icon-small"></div>
+                <div class="kontak-icon-small">🐛</div>
                 <div class="kontak-info">
                     <h3>Laporkan Bug / Masalah</h3>
                     <p>Jika ada video error, subtitle tidak sesuai, atau masalah lain</p>
@@ -37,7 +37,7 @@
             </div>
 
             <div class="kontak-card">
-                <div class="kontak-icon-small"></div>
+                <div class="kontak-icon-small">📢</div>
                 <div class="kontak-info">
                     <h3>Info Update Anime</h3>
                     <p>Dapatkan informasi anime terbaru yang akan ditambahkan</p>
@@ -48,7 +48,7 @@
             </div>
 
             <div class="kontak-card">
-                <div class="kontak-icon-small"></div>
+                <div class="kontak-icon-small">💖</div>
                 <div class="kontak-info">
                     <h3>Dukungan & Request Anime</h3>
                     <p>Dukung development website atau request anime cepat upload</p>
@@ -64,7 +64,7 @@
         </div>
 
         <div class="bottom-nav">
-            <div class="nav-item active" data-page="home">
+            <div class="nav-item" data-page="home">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-label">Home</div>
             </div>
@@ -76,16 +76,17 @@
                 <div class="nav-icon">📜</div>
                 <div class="nav-label">History</div>
             </div>
-            <div class="nav-item" data-page="kontak">
+            <div class="nav-item active" data-page="kontak">
                 <div class="nav-icon">📞</div>
                 <div class="nav-label">Kontak</div>
+            </div>
+            <div class="nav-item" data-page="chat">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">Chat</div>
             </div>
             <div class="nav-item" data-page="profile">
                 <div class="nav-icon">👤</div>
                 <div class="nav-label">Profil</div>
-                <div class="nav-item" data-page="chat">
-               <div class="nav-icon">💬</div>
-                <div class="nav-label">Chat</div>
             </div>
         </div>
     </div>
@@ -93,7 +94,6 @@
     <script src="/js/level.js"></script>
     <script src="/js/maintenance.js"></script>
     <script>
-        // Bottom navigation - kontak tidak perlu maintenance check
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 const page = item.dataset.page;
@@ -102,8 +102,8 @@
                 if (page === 'jadwal') url = '/jadwal.html';
                 if (page === 'history') url = '/history.html';
                 if (page === 'kontak') url = '/kontak.html';
-                if (page === 'profile') url = '/profile.html';
                 if (page === 'chat') url = '/chat.html';
+                if (page === 'profile') url = '/profile.html';
                 if (url) window.location.href = url;
             });
         });
