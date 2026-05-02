@@ -2069,5 +2069,47 @@
       }
     ],
     "id": "41"
+  },
+  {
+    "title": "Himekishi wa Barbaroi no Yome",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHEBfS3M9WtVvrAC0wjIFBtDC2-9eyjWYo6O6XgjeSw0ccgG_O84s4KDRC&s=10",
+    "synopsis": "Ratusan tahun sejak peperangan yang melibatkan pihak Barat dan Timur. Kini, Serafina De Lavillant yang merupakan putri terkenal dan berperan sebagai ksatria telah menjadi tawanan setelah dirinya dikalahkan oleh suku Barbarian.Awalnya, Serafina telah siapuntuk menerima takdir atau hukuman dari para Barbarian. Baik itu hukuman penyiksaan ataupun penghinaan hingga perlakukan kejam lainnya. Namun, siapa sangka justru dirinya mendapatkan sebuah lamaran dari Veor, pemimpin dari suku tersebut. Kini, Serafina terkejut dengan keputusan Veor untuk menjadikannya sebagai istri. Lantas, bagaimana kisah ini akan berlanjut?",
+    "genre": [
+      "Fantasy",
+      "Shounen",
+      "Romance",
+      "Comedy"
+    ],
+    "studio": "Jumondou",
+    "rating": 6.97,
+    "views": "1,6M",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-30",
+    "scheduleDay": "Kamis",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1jwIZirpJcpW2IYTtxct3NHO0pBDpMn6B/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1YGHqtRmVuEAzf3qwt8ZXodkUnW7wlNqp/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1L8a5ukDP0gAc630dTuMnTmAVZekJn7fu/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1WeWfS0iP39CPo0ukNZPfJDku63e2QzBR/view?usp=drivesdk"
+      }
+    ],
+    "id": "42"
   }
 ]
