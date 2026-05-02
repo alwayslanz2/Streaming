@@ -5,10 +5,11 @@ const HistorySchema = new mongoose.Schema({
   animeId: { type: String, required: true },
   animeTitle: { type: String, required: true },
   episode: { type: Number, default: 1 },
-  timestamp: { type: Number, default: 0 }, // detik terakhir nonton
-  lastTimestamp: { type: Number, default: 0 }, // untuk resume
+  timestamp: { type: Number, default: 0 },
   cover: { type: String, default: '' },
   watchedAt: { type: Date, default: Date.now }
 });
+
+HistorySchema.index({ userId: 1, watchedAt: -1 });
 
 export default mongoose.model('History', HistorySchema);
