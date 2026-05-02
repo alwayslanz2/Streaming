@@ -2935,5 +2935,47 @@
       }
     ],
     "id": "58"
+  },
+  {
+    "title": "Kamiina Botan, Yoeru Sugata wa Yuri no Hana",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbmCfsS0t3EHuE6pTV7MMuUyCNuYg0Ae4xS63er4pWdA&s=10",
+    "synopsis": "Botan Kamiina adalah seorang mahasiswi berusia 20 tahun. Saat ia mabuk, ia menjadi sedikit lebih berani dan sering kali melontarkan kata-kata yang membuat hati berdebar…?",
+    "genre": [
+      "Comedy",
+      "Gourmet",
+      "Adult Cast",
+      "Girls Love"
+    ],
+    "studio": "Soigne",
+    "rating": 7.43,
+    "views": "490,0K",
+    "latestEpisode": 4,
+    "uploadDate": "2026-05-01",
+    "scheduleDay": "Sabtu",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Kamiina Botan, Yoeru Sugata wa Yuri no Hana Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1OV3gaBpHmRbiEfr6Q70vCKHw_-XGmYHa/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Kamiina Botan, Yoeru Sugata wa Yuri no Hana Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1vNUyopb3CIhFHIrgUYbSY2-87bl8AuDw/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Kamiina Botan, Yoeru Sugata wa Yuri no Hana Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1mYXPLlVrA0cebDpWdwQvsULmj0DgvrF8/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Kamiina Botan, Yoeru Sugata wa Yuri no Hana Eps4",
+        "videoUrl": "https://drive.google.com/file/d/11-cbmng6NBNwnB5S6glUzPp2CuyLvRmb/view?usp=drivesdk"
+      }
+    ],
+    "id": "59"
   }
 ]
