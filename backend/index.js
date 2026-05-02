@@ -87,7 +87,7 @@ mongoose.connect(process.env.MONGODB_URI)
   .then(async () => {
     console.log('✅ MongoDB connected');
     await ensureAdminUser();
-    startChatCleanupJob(); // Start cron job untuk auto delete chat jam 00 WIB
+    startChatCleanupJob();
   })
   .catch(err => console.error('❌ MongoDB error:', err));
 
@@ -103,10 +103,11 @@ const io = new SocketServer(server, {
 io.on('connection', (socket) => {
     console.log('🔌 User connected:', socket.id);
     
-    // Kirim history chat (100 pesan terakhir)
+    // Kirim history chat (50 pesan terakhir)
     (async () => {
         try {
-            const history = await Chat.find().sort({ timestamp: 1 }).limit(100);
+            const history = await Chat.find().sort({ timestamp: 1 }).limit(50);
+            console.log(`📜 Mengirim ${history.length} history chat ke user baru`);
             socket.emit('chat-history', history);
         } catch (err) {
             console.error('Error sending chat history:', err);
@@ -117,8 +118,13 @@ io.on('connection', (socket) => {
     socket.on('send-message', async (data) => {
         const { userId, username, message } = data;
         
+        console.log(`📨 Pesan dari ${username} (${userId}): ${message.substring(0, 50)}`);
+        
         if (!message || message.trim() === '') return;
-        if (!userId || !username) return;
+        if (!userId || !username) {
+            console.log('❌ Missing userId or username');
+            return;
+        }
         
         try {
             const newChat = new Chat({
@@ -128,11 +134,11 @@ io.on('connection', (socket) => {
                 timestamp: new Date()
             });
             await newChat.save();
+            console.log(`✅ Pesan tersimpan ke MongoDB: ${newChat._id}`);
             
-            // Broadcast ke semua user
             io.emit('new-message', newChat);
         } catch (err) {
-            console.error('Error saving message:', err);
+            console.error('❌ Error saving message:', err);
         }
     });
     
@@ -143,6 +149,7 @@ io.on('connection', (socket) => {
         
         try {
             await Chat.findByIdAndDelete(messageId);
+            console.log(`🗑️ Pesan ${messageId} dihapus oleh admin`);
             io.emit('message-deleted', messageId);
         } catch (err) {
             console.error('Error deleting message:', err);
