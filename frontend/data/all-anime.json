@@ -2406,5 +2406,86 @@
       }
     ],
     "id": "48"
+  },
+  {
+    "title": "Kakuriyo no Yadomeshi Ni",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSullC-9z_dknj8o-Hfv9DBGN1qvAe-j3T6F3EATG46mQ&s=10",
+    "synopsis": "Musim ke-dua dari seris Kakuriyo no Yadomeshi Ni",
+    "genre": [
+      "Drama",
+      "Fantasy",
+      "Romance",
+      "Gourmet",
+      "Mythology"
+    ],
+    "studio": "Gonzo, Makaria",
+    "rating": 6.99,
+    "views": "753,7K",
+    "latestEpisode": 12,
+    "uploadDate": "2025-12-18",
+    "isTrending": false,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1WWOudnEsYDbjYA_WKClJMZTvHlIeCttj/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1YIUWokIX3uNKtaTKbRNXOmzyzElIGaam/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1PWP89d4Udg3tghuFZRt11MEf5_cS6tuj/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1Jq3-3HU0_AAc-ZZO3pArQ4rar5CBIA9Z/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1OCuaOIsIwwW13i1xlB_0EGWQlcuxJrHJ/view?usp=drivesdk"
+      },
+      {
+        "number": 6,
+        "title": "Eps6",
+        "videoUrl": "https://drive.google.com/file/d/1tbRM6QqmZYhUvLdx7Gw2UY_q2v5tE8G6/view?usp=drivesdk"
+      },
+      {
+        "number": 7,
+        "title": "Eps7",
+        "videoUrl": "https://drive.google.com/file/d/1Aj42KVW1eBxgNUVT6wbp3D_9KPBCROi3/view?usp=drivesdk"
+      },
+      {
+        "number": 8,
+        "title": "Eps8",
+        "videoUrl": "https://drive.google.com/file/d/1dKbeaQLq9oQcGNMhbqg9uiQ85rwgupam/view?usp=drivesdk"
+      },
+      {
+        "number": 9,
+        "title": "Eps9",
+        "videoUrl": "https://drive.google.com/file/d/1Q4qkk40vIyKrcD79YTBLGbHB2Jk89gqy/view?usp=drivesdk"
+      },
+      {
+        "number": 10,
+        "title": "Eps10",
+        "videoUrl": "https://drive.google.com/file/d/12AdIWiPcbUpR-CZd78Q5aTlWj-Q4m7ct/view?usp=drivesdk"
+      },
+      {
+        "number": 11,
+        "title": "Eps11",
+        "videoUrl": "https://drive.google.com/file/d/1wwpzOxys5I72YZuWtSq0Wm9_WukelvXU/view?usp=drivesdk"
+      },
+      {
+        "number": 12,
+        "title": "Eps12 (End)",
+        "videoUrl": "https://drive.google.com/file/d/1gtcug99GGyEyEEnSfCtsjZf5QY5wakV_/view?usp=drivesdk"
+      }
+    ],
+    "id": "49"
   }
 ]
