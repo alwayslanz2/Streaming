@@ -62,13 +62,13 @@
                 <div class="nav-icon">📞</div>
                 <div class="nav-label">Kontak</div>
             </div>
+            <div class="nav-item" data-page="chat">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">Chat</div>
+            </div>
             <div class="nav-item" data-page="profile">
                 <div class="nav-icon">👤</div>
                 <div class="nav-label">Profil</div>
-                <div class="nav-item" data-page="chat">
-               <div class="nav-icon">💬</div>
-                <div class="nav-label">Chat</div>
-                
             </div>
         </div>
     </div>
@@ -97,19 +97,17 @@
             }, 1500);
         });
         
-        // Banner maintenance jika mode ON
         (async function() {
             const data = await window.getMaintenanceData();
             if (data && data.maintenance_mode === true) {
                 const banner = document.createElement('div');
                 banner.style.cssText = 'position:fixed;top:0;left:0;right:0;background:linear-gradient(135deg,#e94560,#ff6b6b);color:white;text-align:center;padding:12px;z-index:9999;font-size:13px;font-weight:500;box-shadow:0 2px 10px rgba(0,0,0,0.3);';
-                banner.innerHTML = '🔧 MAINTENANCE MODE AKTIF 🔧<br>Fitur selain Home & Kontak membutuhkan kode akses.';
+                banner.innerHTML = '🔧 MAINTENANCE MODE AKTIF 🔧<br>Fitur selain Home, Kontak & Chat membutuhkan kode akses.';
                 document.body.prepend(banner);
                 document.body.style.paddingTop = '60px';
             }
         })();
 
-        // Bottom navigation dengan bypass kontak
         document.querySelectorAll('.nav-item').forEach(async (item) => {
             item.addEventListener('click', async () => {
                 const page = item.dataset.page;
@@ -118,13 +116,16 @@
                     window.location.href = '/kontak.html';
                     return;
                 }
+                if (page === 'chat') {
+                    window.location.href = '/chat.html';
+                    return;
+                }
                 
                 let url = '';
                 if (page === 'home') url = '/index.html';
                 if (page === 'jadwal') url = '/jadwal.html';
                 if (page === 'history') url = '/history.html';
                 if (page === 'profile') url = '/profile.html';
-                if (page === 'chat') url = '/chat.html';
                 
                 if (url) {
                     const allowed = await window.checkMaintenanceAccess();
