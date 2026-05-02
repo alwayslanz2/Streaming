@@ -3018,5 +3018,47 @@
       }
     ],
     "id": "60"
+  },
+  {
+    "title": "Yomi no Tsugai",
+    "cover": "https://alqanime.net/wp-content/uploads/2026/04/Yomi-no-Tsugai-200x300.jpg",
+    "synopsis": "Yuru, seorang anak laki-laki yang tinggal di desa kecil jauh di pegunungan, hidup tenang di tengah alam bebas sambil berburu burung liar.\n\nNamun, entah mengapa, adik kembar Yuru, Asa, dikatakan sedang menjalankan “tugas suci” di dalam penjara yang terletak di bagian terdalam desa. Seolah-olah dia sedang dikurung…\n\nMisteri yang tak wajar berkembang di desa yang tenang ini. Apakah rahasia yang tersembunyi di desa ini!?",
+    "genre": [
+      "Action",
+      "Fantasy",
+      "Shounen",
+      "Adventure"
+    ],
+    "studio": "Bones Film",
+    "rating": 7.97,
+    "views": "1,6M",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-25",
+    "scheduleDay": "Sabtu",
+    "scheduleStatus": "Menunggu Update",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Yomi no Tsugai Eps1",
+        "videoUrl": "https://drive.google.com/file/d/11qnVqtmCIhgEA-EC7XTsbIZuF-T9CeT9/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Yomi no Tsugai Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1Ukd_mIZEUdtmvVR_JSC1JxSUIkas2IwL/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Yomi no Tsugai Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1t8lhS_LtIuNrgriV4ZlPf1n_vKgblB2O/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Yomi no Tsugai Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1bQLbxPqMzNiHuxJbxYW_aAdRqpJUx6yF/view?usp=drivesdk"
+      }
+    ],
+    "id": "61"
   }
 ]
