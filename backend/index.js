@@ -4,15 +4,13 @@ import { fileURLToPath } from 'url';
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import http from 'http';
-import { Server as SocketServer } from 'socket.io';
 import bcrypt from 'bcryptjs';
 import authRoutes from './routes/auth.js';
 import animeRoutes from './routes/anime.js';
 import historyRoutes from './routes/history.js';
 import userRoutes from './routes/user.js';
+import chatRoutes from './routes/chat.js';
 import User from './models/User.js';
-import Chat from './models/Chat.js';
 import { startChatCleanupJob } from './cron/cleanChat.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -26,17 +24,17 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// ========== STATIC FILES ==========
+// Static files
 app.use('/css', express.static(path.join(__dirname, '../frontend/css')));
 app.use('/js', express.static(path.join(__dirname, '../frontend/js')));
 app.use('/data', express.static(path.join(__dirname, '../frontend/data')));
 app.use('/videos', express.static(path.join(__dirname, '../frontend/videos')));
 app.use(express.static(path.join(__dirname, '../frontend')));
 
-// ========== DATABASE CONNECTION ==========
+// Database connection
 if (!process.env.MONGODB_URI) {
-  console.error('❌ ERROR: MONGODB_URI tidak ditemukan di .env!');
-  process.exit(1);
+    console.error('❌ ERROR: MONGODB_URI tidak ditemukan di .env!');
+    process.exit(1);
 }
 
 async function ensureAdminUser() {
@@ -60,152 +58,43 @@ async function ensureAdminUser() {
             });
             await adminUser.save();
             console.log('✅ Admin super user CREATED!');
-            console.log(`   Email: ${adminEmail}`);
-            console.log(`   Password: ${adminPassword}`);
         } else {
             console.log('✅ Admin super user already exists');
         }
-        
-        const isValid = await bcrypt.compare(adminPassword, adminUser.password);
-        if (isValid) {
-            console.log('✅ Admin password valid');
-        } else {
-            console.log('⚠️ Admin password invalid, resetting...');
-            const salt = await bcrypt.genSalt(10);
-            const newHashedPassword = await bcrypt.hash(adminPassword, salt);
-            adminUser.password = newHashedPassword;
-            await adminUser.save();
-            console.log('✅ Admin password reset successfully');
-        }
-        
     } catch (err) {
-        console.error('❌ Error ensuring admin user:', err);
+        console.error('Admin creation error:', err);
     }
 }
 
 mongoose.connect(process.env.MONGODB_URI)
-  .then(async () => {
-    console.log('✅ MongoDB connected');
-    await ensureAdminUser();
-    startChatCleanupJob();
-  })
-  .catch(err => console.error('❌ MongoDB error:', err));
+    .then(async () => {
+        console.log('✅ MongoDB connected');
+        await ensureAdminUser();
+        startChatCleanupJob();
+    })
+    .catch(err => console.error('❌ MongoDB error:', err));
 
-// ========== SOCKET.IO (CHAT GLOBAL) ==========
-const server = http.createServer(app);
-const io = new SocketServer(server, {
-    cors: {
-        origin: '*',
-        methods: ['GET', 'POST']
-    }
-});
-
-io.on('connection', (socket) => {
-    console.log('🔌 User connected:', socket.id);
-    
-    // Kirim history chat (50 pesan terakhir)
-    (async () => {
-        try {
-            const history = await Chat.find().sort({ timestamp: 1 }).limit(50);
-            console.log(`📜 Mengirim ${history.length} history chat ke user baru`);
-            socket.emit('chat-history', history);
-        } catch (err) {
-            console.error('Error sending chat history:', err);
-        }
-    })();
-    
-    // Listen untuk pesan baru
-    socket.on('send-message', async (data) => {
-        const { userId, username, message } = data;
-        
-        console.log(`📨 Pesan dari ${username} (${userId}): ${message.substring(0, 50)}`);
-        
-        if (!message || message.trim() === '') return;
-        if (!userId || !username) {
-            console.log('❌ Missing userId or username');
-            return;
-        }
-        
-        try {
-            const newChat = new Chat({
-                userId,
-                username,
-                message: message.substring(0, 500),
-                timestamp: new Date()
-            });
-            await newChat.save();
-            console.log(`✅ Pesan tersimpan ke MongoDB: ${newChat._id}`);
-            
-            io.emit('new-message', newChat);
-        } catch (err) {
-            console.error('❌ Error saving message:', err);
-        }
-    });
-    
-    // Listen untuk hapus pesan (hanya admin)
-    socket.on('delete-message', async (data) => {
-        const { messageId, isAdmin } = data;
-        if (!isAdmin) return;
-        
-        try {
-            await Chat.findByIdAndDelete(messageId);
-            console.log(`🗑️ Pesan ${messageId} dihapus oleh admin`);
-            io.emit('message-deleted', messageId);
-        } catch (err) {
-            console.error('Error deleting message:', err);
-        }
-    });
-    
-    socket.on('disconnect', () => {
-        console.log('🔌 User disconnected:', socket.id);
-    });
-});
-
-// ========== API ROUTES ==========
+// Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/anime', animeRoutes);
 app.use('/api/history', historyRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/chat', chatRoutes);
 
-// ========== HTML ROUTES ==========
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
-});
-app.get('/index.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/index.html'));
-});
-app.get('/jadwal.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/jadwal.html'));
-});
-app.get('/history.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/history.html'));
-});
-app.get('/profile.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/profile.html'));
-});
-app.get('/all-anime.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/all-anime.html'));
-});
-app.get('/anime-detail.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/anime-detail.html'));
-});
-app.get('/watch.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/watch.html'));
-});
-app.get('/login.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/login.html'));
-});
-app.get('/register.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/register.html'));
-});
-app.get('/kontak.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/kontak.html'));
-});
-app.get('/chat.html', (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/chat.html'));
-});
+// HTML Routes
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
+app.get('/index.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/index.html')));
+app.get('/jadwal.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/jadwal.html')));
+app.get('/history.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/history.html')));
+app.get('/profile.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/profile.html')));
+app.get('/all-anime.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/all-anime.html')));
+app.get('/anime-detail.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/anime-detail.html')));
+app.get('/watch.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/watch.html')));
+app.get('/login.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/login.html')));
+app.get('/register.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/register.html')));
+app.get('/kontak.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/kontak.html')));
+app.get('/chat.html', (req, res) => res.sendFile(path.join(__dirname, '../frontend/chat.html')));
 
-// ========== START SERVER ==========
-server.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
