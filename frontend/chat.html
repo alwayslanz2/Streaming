@@ -63,13 +63,14 @@
         </div>
     </div>
 
+    <script src="/js/level.js"></script>
+    <script src="/js/maintenance.js"></script>
     <script>
         let socket = null;
         let currentUser = null;
         let currentUserId = null;
         let isAdmin = false;
 
-        // Ambil user dari localStorage
         const userStr = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         
@@ -77,7 +78,6 @@
             try {
                 currentUser = JSON.parse(userStr);
                 currentUserId = currentUser.id;
-                // Cek apakah admin (level >= 99999)
                 isAdmin = currentUser.level >= 99999;
             } catch(e) {}
         }
@@ -87,56 +87,42 @@
             window.location.href = '/login.html';
         }
 
-        // Koneksi Socket.IO
         socket = io();
 
         socket.on('connect', () => {
             console.log('✅ Terhubung ke chat server');
         });
 
-        // Terima history chat
         socket.on('chat-history', (messages) => {
             renderMessages(messages);
         });
 
-        // Terima pesan baru
         socket.on('new-message', (message) => {
             appendMessage(message);
         });
 
-        // Terima notifikasi hapus pesan
         socket.on('message-deleted', (messageId) => {
             const msgElement = document.getElementById(`msg-${messageId}`);
-            if (msgElement) {
-                msgElement.remove();
-            }
+            if (msgElement) msgElement.remove();
         });
 
-        // Render semua pesan
         function renderMessages(messages) {
             const container = document.getElementById('chatMessages');
             if (messages.length === 0) {
                 container.innerHTML = '<div class="chat-empty">Belum ada pesan. Jadilah yang pertama! 💬</div>';
                 return;
             }
-            
             container.innerHTML = '';
-            messages.forEach(msg => {
-                appendMessage(msg, false);
-            });
+            messages.forEach(msg => appendMessage(msg, false));
             scrollToBottom();
         }
 
-        // Append 1 pesan ke DOM
         function appendMessage(msg, scroll = true) {
             const container = document.getElementById('chatMessages');
             const isCurrentUser = (msg.userId === currentUserId);
-            const isAdminUser = msg.username === 'AdminSuper' || (msg.userId === 'admin');
+            const isAdminUser = msg.username === 'AdminSuper';
             
-            // Hapus placeholder jika ada
-            if (container.innerHTML.includes('Belum ada pesan')) {
-                container.innerHTML = '';
-            }
+            if (container.innerHTML.includes('Belum ada pesan')) container.innerHTML = '';
             
             const time = new Date(msg.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
             
@@ -168,40 +154,31 @@
             return div.innerHTML;
         }
 
-        // Kirim pesan
         document.getElementById('sendBtn').addEventListener('click', () => {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
-            
             if (!message) return;
             if (!currentUserId) {
                 alert('Silakan login terlebih dahulu');
                 return;
             }
-            
             socket.emit('send-message', {
                 userId: currentUserId,
                 username: currentUser?.username || 'Anonymous',
                 message: message
             });
-            
             input.value = '';
         });
 
-        // Enter untuk kirim
         document.getElementById('chatInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('sendBtn').click();
-            }
+            if (e.key === 'Enter') document.getElementById('sendBtn').click();
         });
 
-        // Hapus pesan (hanya admin)
         window.deleteMessage = (messageId) => {
             if (!isAdmin) return;
             socket.emit('delete-message', { messageId, isAdmin: true });
         };
 
-        // Bottom navigation
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 const page = item.dataset.page;
@@ -216,6 +193,5 @@
             });
         });
     </script>
-    <script src="/js/level.js"></script>
 </body>
 </html>
