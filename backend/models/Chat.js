@@ -7,4 +7,7 @@ const ChatSchema = new mongoose.Schema({
     timestamp: { type: Date, default: Date.now }
 });
 
+// Index untuk performa query
+ChatSchema.index({ timestamp: -1 });
+
 export default mongoose.model('Chat', ChatSchema);
