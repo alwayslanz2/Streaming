@@ -2157,5 +2157,48 @@
       }
     ],
     "id": "43"
+  },
+  {
+    "title": "Otaku ni Yasashii Gal wa Inai!?",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR73mX_ggnn0UyGmsQ7IyDBCY8H1SUy61UHsfEvNALKDA&s=10",
+    "synopsis": "Mengisahkan Takuya Seo, seorang otaku yang tidak begitu menonjol. Suatu hari, Seo di ajak berbicara oleh dua Gal yang merupakan teman sekelasnya yakni Kei Amane dan Kotoko Ijichi. Bagi Seo, Amane merupakan gadis keren namun sifatnya sangatlah ceroboh.Sementara itu, Ijichi merupakan gadis ceria dan mampu berteman dengan orang lain. Amane sendiri mengetahui berbagai anime dari sang adik. la menolak di sebut sebagai otaku karena hal tersebut. Kini, kehidupan Seo mulai berubah sejak kehadiran dua Gal tersebut.",
+    "genre": [
+      "Seinen",
+      "Romance",
+      "School",
+      "Comedy",
+      "Otaku Culture"
+    ],
+    "studio": "TMS Entertainment",
+    "rating": 7.23,
+    "views": "1,1M",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-30",
+    "scheduleDay": "Kamis",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/17w7h9pyE5Zc60Ksv07ikYjyE740mlaQ7/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1zIMgzReejnV8OuVgdfAUrMzdWPlhX3Tg/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1DsBObWrQCEMqF6WTyg1B4VaYzemqXlhr/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1G9g2GwB_rhq3UK0XwYkxnuSG6ENPYZXu/view?usp=drivesdk"
+      }
+    ],
+    "id": "44"
   }
 ]
