@@ -2111,5 +2111,51 @@
       }
     ],
     "id": "42"
+  },
+  {
+    "title": "The Beginning After the End Season 2",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSxgRJRfrfTVu6ox7Xvhk81HKj1rEew07iPa7wxfcf6rA&s=10",
+    "synopsis": "Musim Kedua dari seri anime Saikyou no Ousama, Nidome no Jinsei wa Nani wo Suru?",
+    "genre": [
+      "Fantasy",
+      "Isekai",
+      "Reincarnation"
+    ],
+    "studio": "Studio A-CAT",
+    "rating": 6.28,
+    "views": "2,9M",
+    "latestEpisode": 5,
+    "uploadDate": "2026-04-30",
+    "scheduleDay": "Kamis",
+    "scheduleStatus": "Sudah Tayang",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1JwfJv4JT2BW0v8N8mkXNoNIJtUNFXsxo/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1ac_iF8O550Hzq_RUZwkgxFTSKQlErB5z/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1C5hy9Pw3qUWXBESRPnweMouFbq4THHO6/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1TZDXIYQ9iRWXebpXjDWCVy9s1huOwx2u/view?usp=drivesdk"
+      },
+      {
+        "number": 5,
+        "title": "Eps5",
+        "videoUrl": "https://drive.google.com/file/d/1bV-trUX8O1gXNQ_yWmkp9qRbZMHrtFUy/view?usp=drivesdk"
+      }
+    ],
+    "id": "43"
   }
 ]
