@@ -2719,5 +2719,49 @@
       }
     ],
     "id": "54"
+  },
+  {
+    "title": "Tensei Shitara Slime Datta Ken Season 4",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrd-SNnARqoAa3S5MNMx8zY5Q_KzQXeReoN-6BZnB3Nw&s=10",
+    "synopsis": "Impian Rimuru sang Raja Iblis untuk menciptakan aliansi antara manusia dan monster semakin mendekati kenyataan. Seiring Tempest terus berkembang pesat, Granville Rozzo bersama cucunya, Maribel Rozzo, mulai berhadapan dengan Rimuru demi rencana mereka melindungi umat manusia dengan cara menguasai mereka. Sementara itu, di El Dorado, Raja Iblis Leon juga tengah bergerak mengejar tujuannya sendiri. Di tengah semua itu, kebangkitan seorang Pahlawan baru pun semakin mendekat!",
+    "genre": [
+      "Action",
+      "Fantasy",
+      "Shounen",
+      "Comedy",
+      "Isekai",
+      "Reincarnation"
+    ],
+    "studio": "8bit",
+    "rating": 7.69,
+    "views": "3,6M",
+    "latestEpisode": 4,
+    "uploadDate": "2026-04-24",
+    "scheduleDay": "Jumat",
+    "scheduleStatus": "Menunggu Update",
+    "isTrending": true,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/1MKpzL-pn0R7ccyli66SpN5LlDMZBetcx/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1-okXsyuc4WG68k7gAKLIVgB4pbGbiSiS/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1qXpsAtGcLLa7i8edUxIKQh1nQeWVgMKb/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/13UlpTu1XxXVaor8DocP7pB_LXojmh63w/view?usp=drivesdk"
+      }
+    ],
+    "id": "55"
   }
 ]
