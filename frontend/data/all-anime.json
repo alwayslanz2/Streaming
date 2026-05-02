@@ -2287,5 +2287,46 @@
       }
     ],
     "id": "46"
+  },
+  {
+    "title": "Tonari no Youkai-san",
+    "cover": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTv08L918TQxiO90VKXSE_bSShLHIVx3e20__MyGlXJaw&s=10",
+    "synopsis": "Di dunia ini, manusia, dewa, dan juga siluman hidup berdampingan dengan sangat damai. Kisah pun berpusat kepada Buchio yang selama 20 tahun terakhir telah hidup sebagai kucing dan terlahir Kembali menjadi Nokomata. Sementara itu, ada Jirou yang merupakan seekor gagak tengu yang telah menjadi pelindung selama beberapa generasi. Ada juga Mutsumi, gadis cilik yang hidup dengan sifat periangnya meskipun kini ia telah ditinggal sang ayah. Inilah kisah dari hubungan manusia dan juga makhluk lainnya.",
+    "genre": [
+      "Supernatural",
+      "Slice of Life",
+      "Mythology"
+    ],
+    "studio": "LIDENFILMS",
+    "rating": 7.05,
+    "views": "697,9K",
+    "latestEpisode": 4,
+    "uploadDate": "2024-05-01",
+    "scheduleDay": "Kamis",
+    "scheduleStatus": "Menunggu Update",
+    "isTrending": false,
+    "episodes": [
+      {
+        "number": 1,
+        "title": "Eps1",
+        "videoUrl": "https://drive.google.com/file/d/18nr8y4xa8jiFSerfltK7jQAjqfrp6tcz/view?usp=drivesdk"
+      },
+      {
+        "number": 2,
+        "title": "Eps2",
+        "videoUrl": "https://drive.google.com/file/d/1lN8jdztH5AshKbkMpbxDo1G_mY5mt1m8/view?usp=drivesdk"
+      },
+      {
+        "number": 3,
+        "title": "Eps3",
+        "videoUrl": "https://drive.google.com/file/d/1wtGbMDkuyCYc4x4i7Zpv7qeHeQSJ0oU_/view?usp=drivesdk"
+      },
+      {
+        "number": 4,
+        "title": "Eps4",
+        "videoUrl": "https://drive.google.com/file/d/1HX_QxdK9W_zfMr-BsyBW-pNoMgHud2Fr/view?usp=drivesdk"
+      }
+    ],
+    "id": "47"
   }
 ]
