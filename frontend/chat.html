@@ -63,8 +63,6 @@
         </div>
     </div>
 
-    <script src="/js/level.js"></script>
-    <script src="/js/maintenance.js"></script>
     <script>
         let socket = null;
         let currentUser = null;
@@ -74,12 +72,17 @@
         const userStr = localStorage.getItem('user');
         const token = localStorage.getItem('token');
         
+        console.log('User from localStorage:', userStr);
+        
         if (userStr) {
             try {
                 currentUser = JSON.parse(userStr);
                 currentUserId = currentUser.id;
                 isAdmin = currentUser.level >= 99999;
-            } catch(e) {}
+                console.log('Current user:', currentUser.username, 'ID:', currentUserId, 'isAdmin:', isAdmin);
+            } catch(e) {
+                console.error('Error parsing user:', e);
+            }
         }
 
         if (!token) {
@@ -87,28 +90,38 @@
             window.location.href = '/login.html';
         }
 
-        socket = io();
+        // Inisialisasi Socket.IO
+        socket = io({
+            transports: ['websocket', 'polling']
+        });
 
         socket.on('connect', () => {
-            console.log('✅ Terhubung ke chat server');
+            console.log('✅ Terhubung ke chat server, socket ID:', socket.id);
+        });
+
+        socket.on('connect_error', (error) => {
+            console.error('❌ Connection error:', error);
         });
 
         socket.on('chat-history', (messages) => {
+            console.log('📜 Received chat history:', messages.length, 'messages');
             renderMessages(messages);
         });
 
         socket.on('new-message', (message) => {
+            console.log('💬 New message from:', message.username);
             appendMessage(message);
         });
 
         socket.on('message-deleted', (messageId) => {
+            console.log('🗑️ Message deleted:', messageId);
             const msgElement = document.getElementById(`msg-${messageId}`);
             if (msgElement) msgElement.remove();
         });
 
         function renderMessages(messages) {
             const container = document.getElementById('chatMessages');
-            if (messages.length === 0) {
+            if (!messages || messages.length === 0) {
                 container.innerHTML = '<div class="chat-empty">Belum ada pesan. Jadilah yang pertama! 💬</div>';
                 return;
             }
@@ -122,7 +135,9 @@
             const isCurrentUser = (msg.userId === currentUserId);
             const isAdminUser = msg.username === 'AdminSuper';
             
-            if (container.innerHTML.includes('Belum ada pesan')) container.innerHTML = '';
+            if (container.innerHTML.includes('Belum ada pesan')) {
+                container.innerHTML = '';
+            }
             
             const time = new Date(msg.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
             
@@ -145,40 +160,57 @@
 
         function scrollToBottom() {
             const container = document.getElementById('chatMessages');
-            container.scrollTop = container.scrollHeight;
+            if (container) {
+                container.scrollTop = container.scrollHeight;
+            }
         }
 
         function escapeHtml(text) {
+            if (!text) return '';
             const div = document.createElement('div');
             div.textContent = text;
             return div.innerHTML;
         }
 
+        // Kirim pesan
         document.getElementById('sendBtn').addEventListener('click', () => {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
-            if (!message) return;
+            
+            if (!message) {
+                console.log('Empty message, ignoring');
+                return;
+            }
+            
             if (!currentUserId) {
                 alert('Silakan login terlebih dahulu');
                 return;
             }
+            
+            console.log('Sending message:', message, 'by user:', currentUser?.username);
+            
             socket.emit('send-message', {
                 userId: currentUserId,
                 username: currentUser?.username || 'Anonymous',
                 message: message
             });
+            
             input.value = '';
         });
 
         document.getElementById('chatInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') document.getElementById('sendBtn').click();
+            if (e.key === 'Enter') {
+                document.getElementById('sendBtn').click();
+            }
         });
 
         window.deleteMessage = (messageId) => {
             if (!isAdmin) return;
+            console.log('Deleting message:', messageId);
             socket.emit('delete-message', { messageId, isAdmin: true });
         };
 
+        // Bottom navigation
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 const page = item.dataset.page;
