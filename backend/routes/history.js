@@ -1,78 +1,68 @@
 import express from 'express';
 import History from '../models/History.js';
 import auth from '../middleware/auth.js';
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import Anime from '../models/Anime.js';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 const router = express.Router();
 
-// Ambil cover dari all-anime.json
-function getAnimeCover(animeId) {
-    try {
-        const dataPath = path.join(__dirname, '../../frontend/data/all-anime.json');
-        const data = fs.readFileSync(dataPath, 'utf8');
-        const animeList = JSON.parse(data);
-        const anime = animeList.find(a => a.id === animeId);
-        return anime?.cover || '';
-    } catch (err) {
-        return '';
-    }
-}
-
 router.get('/', auth, async (req, res) => {
-  try {
-    const history = await History.find({ userId: req.userId }).sort({ watchedAt: -1 });
-    res.json(history);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    try {
+        const history = await History.find({ userId: req.userId }).sort({ watchedAt: -1 });
+        res.json(history);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 router.post('/add', auth, async (req, res) => {
-  try {
-    const { animeId, animeTitle, watchTime, episode } = req.body;
-    
-    const coverUrl = getAnimeCover(animeId);
-    
-    let history = await History.findOne({ userId: req.userId, animeId, episode: episode || 1 });
-    
-    if (history) {
-      // Update timestamp ke yang terbaru (ambil yang terbesar)
-      const newTimestamp = Math.max(history.timestamp || 0, watchTime || 0);
-      history.timestamp = newTimestamp;
-      history.lastTimestamp = watchTime || history.lastTimestamp;
-      history.watchedAt = new Date();
-      if (coverUrl) history.cover = coverUrl;
-      await history.save();
-    } else {
-      history = new History({
-        userId: req.userId,
-        animeId,
-        animeTitle,
-        timestamp: watchTime || 0,
-        lastTimestamp: watchTime || 0,
-        episode: episode || 1,
-        cover: coverUrl
-      });
-      await history.save();
+    try {
+        const { animeId, watchTime, episode } = req.body;
+        
+        // Ambil info anime dari MongoDB
+        const anime = await Anime.findOne({ id: animeId });
+        if (!anime) {
+            return res.status(404).json({ error: 'Anime tidak ditemukan' });
+        }
+        
+        let history = await History.findOne({ 
+            userId: req.userId, 
+            animeId: animeId, 
+            episode: episode || 1 
+        });
+        
+        if (history) {
+            // Update timestamp jika lebih besar dari sebelumnya
+            if (watchTime > history.timestamp) {
+                history.timestamp = watchTime;
+                history.watchedAt = new Date();
+                await history.save();
+            }
+        } else {
+            history = new History({
+                userId: req.userId,
+                animeId: animeId,
+                animeTitle: anime.title,
+                episode: episode || 1,
+                timestamp: watchTime || 0,
+                cover: anime.cover
+            });
+            await history.save();
+        }
+        
+        res.json({ success: true, history });
+    } catch (err) {
+        console.error('Save history error:', err);
+        res.status(500).json({ error: err.message });
     }
-    
-    res.json({ success: true, history });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
 });
 
 router.delete('/:id', auth, async (req, res) => {
-  try {
-    await History.findOneAndDelete({ _id: req.params.id, userId: req.userId });
-    res.json({ success: true });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    try {
+        await History.findOneAndDelete({ _id: req.params.id, userId: req.userId });
+        res.json({ success: true });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
 });
 
 export default router;
