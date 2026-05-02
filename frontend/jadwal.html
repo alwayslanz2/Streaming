@@ -33,11 +33,11 @@
         </div>
 
         <div class="bottom-nav">
-            <div class="nav-item active" data-page="home">
+            <div class="nav-item" data-page="home">
                 <div class="nav-icon">🏠</div>
                 <div class="nav-label">Home</div>
             </div>
-            <div class="nav-item" data-page="jadwal">
+            <div class="nav-item active" data-page="jadwal">
                 <div class="nav-icon">📅</div>
                 <div class="nav-label">Jadwal</div>
             </div>
@@ -49,12 +49,13 @@
                 <div class="nav-icon">📞</div>
                 <div class="nav-label">Kontak</div>
             </div>
+            <div class="nav-item" data-page="chat">
+                <div class="nav-icon">💬</div>
+                <div class="nav-label">Chat</div>
+            </div>
             <div class="nav-item" data-page="profile">
                 <div class="nav-icon">👤</div>
                 <div class="nav-label">Profil</div>
-                <div class="nav-item" data-page="chat">
-               <div class="nav-icon">💬</div>
-                <div class="nav-label">Chat</div>
             </div>
         </div>
     </div>
@@ -71,13 +72,16 @@
                     window.location.href = '/kontak.html';
                     return;
                 }
+                if (page === 'chat') {
+                    window.location.href = '/chat.html';
+                    return;
+                }
                 
                 let url = '';
                 if (page === 'home') url = '/index.html';
                 if (page === 'jadwal') url = '/jadwal.html';
                 if (page === 'history') url = '/history.html';
                 if (page === 'profile') url = '/profile.html';
-                if (page === 'chat') url = '/chat.html';
                 
                 if (url) {
                     const allowed = await window.checkMaintenanceAccess();
