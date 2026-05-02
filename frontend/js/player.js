@@ -1,3 +1,4 @@
+// player.js
 const urlParams = new URLSearchParams(window.location.search);
 const animeId = urlParams.get('id');
 const episodeNum = urlParams.get('ep');
@@ -21,6 +22,30 @@ const progressBar = document.getElementById('progressBar');
 
 episodeTitleElem.innerText = episodeTitle;
 
+function showRotateHint() {
+    const hint = document.createElement('div');
+    hint.id = 'rotateHint';
+    hint.innerText = 'Putar perangkat untuk mode layar penuh';
+    hint.style.cssText = `
+        position: fixed;
+        top: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0,0,0,.8);
+        color: #fff;
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 13px;
+        z-index: 9999;
+    `;
+    document.body.appendChild(hint);
+
+    setTimeout(() => {
+        const el = document.getElementById('rotateHint');
+        if (el) el.remove();
+    }, 2500);
+}
+
 function isGoogleDriveUrl(url) {
     return url.includes('drive.google.com') || url.includes('drive.usercontent.google.com');
 }
@@ -39,84 +64,236 @@ let watchStartTime = Date.now();
 let hasRecorded = false;
 let recordedTimer = null;
 let isGoogleDrive = false;
+let orientationLocked = false;
+
+async function enterNativeFullscreen() {
+    try {
+        const target = isGoogleDrive ? googleDrivePlayer : animePlayer;
+
+        if (target.requestFullscreen) {
+            await target.requestFullscreen();
+        } else if (target.webkitRequestFullscreen) {
+            await target.webkitRequestFullscreen();
+        }
+
+        if (screen.orientation?.lock) {
+            try {
+                await screen.orientation.lock('landscape');
+                orientationLocked = true;
+            } catch (err) {
+                console.warn('Orientation lock gagal:', err);
+                showRotateHint();
+            }
+        }
+    } catch (err) {
+        console.warn('Fullscreen gagal:', err);
+    }
+}
+
+async function exitOrientationLock() {
+    if (!orientationLocked) return;
+
+    try {
+        if (screen.orientation?.unlock) {
+            screen.orientation.unlock();
+        }
+    } catch (err) {
+        console.warn('Orientation unlock gagal:', err);
+    }
+
+    orientationLocked = false;
+}
+
+document.addEventListener('fullscreenchange', () => {
+    if (!document.fullscreenElement) {
+        exitOrientationLock();
+    }
+});
 
 if (isGoogleDriveUrl(videoUrl)) {
     isGoogleDrive = true;
     const embedUrl = getGoogleDriveEmbedUrl(videoUrl);
+
     googleDrivePlayer.style.display = 'block';
     animePlayer.style.display = 'none';
     driveIframe.src = embedUrl;
-    recordedTimer = setTimeout(() => { if (!hasRecorded) saveWatchProgressForGoogleDrive(180); }, 30000);
+
+    googleDrivePlayer.addEventListener('click', async () => {
+        if (!document.fullscreenElement) {
+            await enterNativeFullscreen();
+        }
+    }, { once: true });
+
+    recordedTimer = setTimeout(() => {
+        if (!hasRecorded) saveWatchProgressForGoogleDrive(180);
+    }, 30000);
+
 } else {
     isGoogleDrive = false;
     googleDrivePlayer.style.display = 'none';
     animePlayer.style.display = 'block';
+
     let finalUrl = videoUrl;
-    if (!videoUrl.startsWith('http://') && !videoUrl.startsWith('https://')) finalUrl = `/videos/${videoUrl}`;
+    if (!videoUrl.startsWith('http://') && !videoUrl.startsWith('https://')) {
+        finalUrl = `/videos/${videoUrl}`;
+    }
+
     videoSource.src = finalUrl;
     animePlayer.load();
+
     if (resumeTimestamp > 0) {
-        animePlayer.addEventListener('loadedmetadata', () => { if (resumeTimestamp < animePlayer.duration) animePlayer.currentTime = resumeTimestamp; });
+        animePlayer.addEventListener('loadedmetadata', () => {
+            if (resumeTimestamp < animePlayer.duration) {
+                animePlayer.currentTime = resumeTimestamp;
+            }
+        });
     }
-    animePlayer.addEventListener('play', () => { watchStartTime = Date.now(); });
+
+    animePlayer.addEventListener('play', async () => {
+        watchStartTime = Date.now();
+
+        if (!document.fullscreenElement) {
+            await enterNativeFullscreen();
+        }
+    });
+
     animePlayer.addEventListener('timeupdate', () => {
         const currentTime = animePlayer.currentTime;
         const duration = animePlayer.duration;
-        if (currentTime > 5 && currentTime < 88) skipBtn.style.display = 'block';
-        else skipBtn.style.display = 'none';
-        if (duration > 0) progressBar.style.width = `${(currentTime / duration) * 100}%`;
-        if (!hasRecorded && duration > 0 && (currentTime / duration) > 0.95) saveWatchProgressForMp4(true);
+
+        if (currentTime > 5 && currentTime < 88) {
+            skipBtn.style.display = 'block';
+        } else {
+            skipBtn.style.display = 'none';
+        }
+
+        if (duration > 0) {
+            progressBar.style.width = `${(currentTime / duration) * 100}%`;
+        }
+
+        if (!hasRecorded && duration > 0 && (currentTime / duration) > 0.95) {
+            saveWatchProgressForMp4(true);
+        }
     });
-    skipBtn.addEventListener('click', () => { animePlayer.currentTime = 90; skipBtn.style.display = 'none'; });
-    animePlayer.addEventListener('ended', () => { saveWatchProgressForMp4(true); if (recordedTimer) clearTimeout(recordedTimer); });
-    recordedTimer = setInterval(() => { if (animePlayer && !animePlayer.paused && animePlayer.currentTime > 0 && !hasRecorded) saveWatchProgressForMp4(false); }, 15000);
+
+    skipBtn.addEventListener('click', () => {
+        animePlayer.currentTime = 90;
+        skipBtn.style.display = 'none';
+    });
+
+    animePlayer.addEventListener('ended', () => {
+        saveWatchProgressForMp4(true);
+        if (recordedTimer) clearInterval(recordedTimer);
+    });
+
+    recordedTimer = setInterval(() => {
+        if (animePlayer && !animePlayer.paused && animePlayer.currentTime > 0 && !hasRecorded) {
+            saveWatchProgressForMp4(false);
+        }
+    }, 15000);
 }
 
 async function saveWatchProgressForMp4(isComplete = false) {
     if (hasRecorded) return;
+
     const token = localStorage.getItem('token');
     if (!token) return;
+
     const currentTime = Math.floor(animePlayer.currentTime);
     const watchSeconds = Math.floor((Date.now() - watchStartTime) / 1000);
+
     if (currentTime < 3 && !isComplete) return;
+
     try {
-        await axios.post('/api/history/add', { animeId, animeTitle: '', watchTime: currentTime, episode: episodeNum }, { headers: { Authorization: `Bearer ${token}` } });
+        await axios.post('/api/history/add', {
+            animeId,
+            animeTitle: '',
+            watchTime: currentTime,
+            episode: episodeNum
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
         if (watchSeconds >= 10 && !hasRecorded) {
-            const xpRes = await axios.post('/api/user/add-xp', { watchTime: watchSeconds }, { headers: { Authorization: `Bearer ${token}` } });
-            if (xpRes.data.leveledUp && typeof updateLevelBadge === 'function') { alert(`🎉 LEVEL UP! Kamu sekarang Level ${xpRes.data.level}!`); updateLevelBadge(); }
+            const xpRes = await axios.post('/api/user/add-xp', {
+                watchTime: watchSeconds
+            }, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (xpRes.data.leveledUp && typeof updateLevelBadge === 'function') {
+                alert(`🎉 LEVEL UP! Kamu sekarang Level ${xpRes.data.level}!`);
+                updateLevelBadge();
+            }
+
             hasRecorded = true;
         }
-    } catch (err) { console.error('Gagal simpan progress:', err); }
+    } catch (err) {
+        console.error('Gagal simpan progress:', err);
+    }
 }
 
 async function saveWatchProgressForGoogleDrive(watchSeconds) {
     if (hasRecorded) return;
+
     const token = localStorage.getItem('token');
     if (!token) return;
+
     hasRecorded = true;
+
     try {
-        await axios.post('/api/history/add', { animeId, animeTitle: '', watchTime: watchSeconds, episode: episodeNum }, { headers: { Authorization: `Bearer ${token}` } });
-        const xpRes = await axios.post('/api/user/add-xp', { watchTime: watchSeconds }, { headers: { Authorization: `Bearer ${token}` } });
-        if (xpRes.data.leveledUp && typeof updateLevelBadge === 'function') { alert(`🎉 LEVEL UP! Kamu sekarang Level ${xpRes.data.level}!`); updateLevelBadge(); }
-    } catch (err) { console.error('Gagal simpan progress Google Drive:', err); hasRecorded = false; }
+        await axios.post('/api/history/add', {
+            animeId,
+            animeTitle: '',
+            watchTime: watchSeconds,
+            episode: episodeNum
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        const xpRes = await axios.post('/api/user/add-xp', {
+            watchTime: watchSeconds
+        }, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+
+        if (xpRes.data.leveledUp && typeof updateLevelBadge === 'function') {
+            alert(`🎉 LEVEL UP! Kamu sekarang Level ${xpRes.data.level}!`);
+            updateLevelBadge();
+        }
+    } catch (err) {
+        console.error('Gagal simpan progress Google Drive:', err);
+        hasRecorded = false;
+    }
 }
 
 window.addEventListener('beforeunload', () => {
     if (!isGoogleDrive && animePlayer && animePlayer.currentTime > 0) {
         const token = localStorage.getItem('token');
-        if (token) navigator.sendBeacon('/api/history/add', new Blob([JSON.stringify({ animeId, watchTime: Math.floor(animePlayer.currentTime), episode: episodeNum })], { type: 'application/json' }));
+
+        if (token) {
+            navigator.sendBeacon('/api/history/add', new Blob([JSON.stringify({
+                animeId,
+                watchTime: Math.floor(animePlayer.currentTime),
+                episode: episodeNum
+            })], {
+                type: 'application/json'
+            }));
+        }
     }
 });
 
-document.querySelectorAll('.nav-item').forEach(async (item) => {
+document.querySelectorAll('.nav-item').forEach((item) => {
     item.addEventListener('click', async () => {
         const page = item.dataset.page;
         let url = '';
+
         if (page === 'home') url = '/index.html';
         if (page === 'jadwal') url = '/jadwal.html';
         if (page === 'history') url = '/history.html';
         if (page === 'profile') url = '/profile.html';
         if (page === 'kontak') url = '/kontak.html';
+
         if (url) {
             const allowed = await window.checkMaintenanceAccess();
             if (allowed) window.location.href = url;
