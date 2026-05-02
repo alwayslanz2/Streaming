@@ -6,7 +6,6 @@
     <title>Chat Global - AnimeStream</title>
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="/socket.io/socket.io.js"></script>
 </head>
 <body>
     <div class="app-container">
@@ -36,53 +35,30 @@
         </div>
 
         <div class="bottom-nav">
-            <div class="nav-item" data-page="home">
-                <div class="nav-icon">🏠</div>
-                <div class="nav-label">Home</div>
-            </div>
-            <div class="nav-item" data-page="jadwal">
-                <div class="nav-icon">📅</div>
-                <div class="nav-label">Jadwal</div>
-            </div>
-            <div class="nav-item" data-page="history">
-                <div class="nav-icon">📜</div>
-                <div class="nav-label">History</div>
-            </div>
-            <div class="nav-item" data-page="kontak">
-                <div class="nav-icon">📞</div>
-                <div class="nav-label">Kontak</div>
-            </div>
-            <div class="nav-item active" data-page="chat">
-                <div class="nav-icon">💬</div>
-                <div class="nav-label">Chat</div>
-            </div>
-            <div class="nav-item" data-page="profile">
-                <div class="nav-icon">👤</div>
-                <div class="nav-label">Profil</div>
-            </div>
+            <div class="nav-item" data-page="home"><div class="nav-icon">🏠</div><div class="nav-label">Home</div></div>
+            <div class="nav-item" data-page="jadwal"><div class="nav-icon">📅</div><div class="nav-label">Jadwal</div></div>
+            <div class="nav-item" data-page="history"><div class="nav-icon">📜</div><div class="nav-label">History</div></div>
+            <div class="nav-item" data-page="kontak"><div class="nav-icon">📞</div><div class="nav-label">Kontak</div></div>
+            <div class="nav-item active" data-page="chat"><div class="nav-icon">💬</div><div class="nav-label">Chat</div></div>
+            <div class="nav-item" data-page="profile"><div class="nav-icon">👤</div><div class="nav-label">Profil</div></div>
         </div>
     </div>
 
     <script>
-        let socket = null;
         let currentUser = null;
         let currentUserId = null;
         let isAdmin = false;
+        let refreshInterval = null;
 
         const userStr = localStorage.getItem('user');
         const token = localStorage.getItem('token');
-        
-        console.log('User from localStorage:', userStr);
-        
+
         if (userStr) {
             try {
                 currentUser = JSON.parse(userStr);
                 currentUserId = currentUser.id;
                 isAdmin = currentUser.level >= 99999;
-                console.log('Current user:', currentUser.username, 'ID:', currentUserId, 'isAdmin:', isAdmin);
-            } catch(e) {
-                console.error('Error parsing user:', e);
-            }
+            } catch(e) {}
         }
 
         if (!token) {
@@ -90,34 +66,16 @@
             window.location.href = '/login.html';
         }
 
-        // Inisialisasi Socket.IO
-        socket = io({
-            transports: ['websocket', 'polling']
-        });
-
-        socket.on('connect', () => {
-            console.log('✅ Terhubung ke chat server, socket ID:', socket.id);
-        });
-
-        socket.on('connect_error', (error) => {
-            console.error('❌ Connection error:', error);
-        });
-
-        socket.on('chat-history', (messages) => {
-            console.log('📜 Received chat history:', messages.length, 'messages');
-            renderMessages(messages);
-        });
-
-        socket.on('new-message', (message) => {
-            console.log('💬 New message from:', message.username);
-            appendMessage(message);
-        });
-
-        socket.on('message-deleted', (messageId) => {
-            console.log('🗑️ Message deleted:', messageId);
-            const msgElement = document.getElementById(`msg-${messageId}`);
-            if (msgElement) msgElement.remove();
-        });
+        async function loadMessages() {
+            try {
+                const res = await axios.get('/api/chat/messages', {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                renderMessages(res.data);
+            } catch (err) {
+                console.error('Gagal load chat:', err);
+            }
+        }
 
         function renderMessages(messages) {
             const container = document.getElementById('chatMessages');
@@ -125,44 +83,32 @@
                 container.innerHTML = '<div class="chat-empty">Belum ada pesan. Jadilah yang pertama! 💬</div>';
                 return;
             }
+            
             container.innerHTML = '';
-            messages.forEach(msg => appendMessage(msg, false));
+            messages.forEach(msg => {
+                const isCurrentUser = (msg.userId === currentUserId);
+                const isAdminUser = msg.username === 'AdminSuper';
+                const time = new Date(msg.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+                
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message ${isCurrentUser ? 'my-message' : 'other-message'}`;
+                messageDiv.id = `msg-${msg._id}`;
+                messageDiv.innerHTML = `
+                    <div class="chat-message-header">
+                        <span class="chat-username" style="color: ${isAdminUser ? '#f9ca24' : '#e94560'}">${escapeHtml(msg.username)}</span>
+                        <span class="chat-time">${time}</span>
+                        ${isAdmin ? `<button class="chat-delete-btn" onclick="deleteMessage('${msg._id}')">🗑️</button>` : ''}
+                    </div>
+                    <div class="chat-message-text">${escapeHtml(msg.message)}</div>
+                `;
+                container.appendChild(messageDiv);
+            });
             scrollToBottom();
-        }
-
-        function appendMessage(msg, scroll = true) {
-            const container = document.getElementById('chatMessages');
-            const isCurrentUser = (msg.userId === currentUserId);
-            const isAdminUser = msg.username === 'AdminSuper';
-            
-            if (container.innerHTML.includes('Belum ada pesan')) {
-                container.innerHTML = '';
-            }
-            
-            const time = new Date(msg.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
-            
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${isCurrentUser ? 'my-message' : 'other-message'}`;
-            messageDiv.id = `msg-${msg._id}`;
-            
-            messageDiv.innerHTML = `
-                <div class="chat-message-header">
-                    <span class="chat-username" style="color: ${isAdminUser ? '#f9ca24' : '#e94560'}">${escapeHtml(msg.username)}</span>
-                    <span class="chat-time">${time}</span>
-                    ${isAdmin ? `<button class="chat-delete-btn" onclick="deleteMessage('${msg._id}')">🗑️</button>` : ''}
-                </div>
-                <div class="chat-message-text">${escapeHtml(msg.message)}</div>
-            `;
-            
-            container.appendChild(messageDiv);
-            if (scroll) scrollToBottom();
         }
 
         function scrollToBottom() {
             const container = document.getElementById('chatMessages');
-            if (container) {
-                container.scrollTop = container.scrollHeight;
-            }
+            container.scrollTop = container.scrollHeight;
         }
 
         function escapeHtml(text) {
@@ -172,57 +118,58 @@
             return div.innerHTML;
         }
 
-        // Kirim pesan
-        document.getElementById('sendBtn').addEventListener('click', () => {
+        async function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
+            if (!message) return;
             
-            if (!message) {
-                console.log('Empty message, ignoring');
-                return;
+            try {
+                await axios.post('/api/chat/messages', { message }, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                input.value = '';
+                loadMessages();
+            } catch (err) {
+                alert(err.response?.data?.error || 'Gagal kirim pesan');
             }
-            
-            if (!currentUserId) {
-                alert('Silakan login terlebih dahulu');
-                return;
-            }
-            
-            console.log('Sending message:', message, 'by user:', currentUser?.username);
-            
-            socket.emit('send-message', {
-                userId: currentUserId,
-                username: currentUser?.username || 'Anonymous',
-                message: message
-            });
-            
-            input.value = '';
-        });
+        }
 
-        document.getElementById('chatInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                document.getElementById('sendBtn').click();
-            }
-        });
-
-        window.deleteMessage = (messageId) => {
+        window.deleteMessage = async (messageId) => {
             if (!isAdmin) return;
-            console.log('Deleting message:', messageId);
-            socket.emit('delete-message', { messageId, isAdmin: true });
+            try {
+                await axios.delete(`/api/chat/messages/${messageId}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                loadMessages();
+            } catch (err) {
+                alert(err.response?.data?.error || 'Gagal hapus pesan');
+            }
         };
+
+        document.getElementById('sendBtn').addEventListener('click', sendMessage);
+        document.getElementById('chatInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        // Refresh chat setiap 3 detik
+        loadMessages();
+        refreshInterval = setInterval(loadMessages, 3000);
 
         // Bottom navigation
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 const page = item.dataset.page;
-                let url = '';
-                if (page === 'home') url = '/index.html';
-                if (page === 'jadwal') url = '/jadwal.html';
-                if (page === 'history') url = '/history.html';
-                if (page === 'kontak') url = '/kontak.html';
-                if (page === 'chat') url = '/chat.html';
-                if (page === 'profile') url = '/profile.html';
+                const url = {
+                    home: '/index.html', jadwal: '/jadwal.html', history: '/history.html',
+                    kontak: '/kontak.html', chat: '/chat.html', profile: '/profile.html'
+                }[page];
                 if (url) window.location.href = url;
             });
+        });
+
+        // Cleanup interval saat leave
+        window.addEventListener('beforeunload', () => {
+            if (refreshInterval) clearInterval(refreshInterval);
         });
     </script>
 </body>
